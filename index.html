@@ -2,20 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Aurora Arcade – Game Library</title>
+  <title>Aurora – Home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
       --bg: #020617;
-      --bg-soft: #020617;
-      --bg-card: #0b1120;
+      --bg-alt: #030712;
       --accent: #22c55e;
-      --accent-soft: rgba(34, 197, 94, 0.2);
-      --accent-yellow: #facc15;
-      --border: rgba(148, 163, 184, 0.6);
-      --border-soft: rgba(148, 163, 184, 0.35);
+      --accent-soft: rgba(34, 197, 94, 0.08);
+      --accent-strong: #a855f7;
       --text-main: #e5e7eb;
       --text-muted: #9ca3af;
+      --border-soft: rgba(148, 163, 184, 0.35);
     }
 
     * {
@@ -29,776 +27,97 @@
       background: radial-gradient(circle at top, #111827 0, #020617 45%, #000 100%);
       color: var(--text-main);
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
-    .page {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 16px 20px 40px;
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
     /* NAVBAR */
     header {
+      border-bottom: 1px solid rgba(15, 23, 42, 1);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(18px);
       position: sticky;
       top: 0;
-      z-index: 50;
-      background: rgba(15, 23, 42, 0.98);
-      border-bottom: 1px solid rgba(31, 41, 55, 0.9);
-      backdrop-filter: blur(18px);
+      z-index: 10;
     }
 
     .nav {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 10px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      padding: 10px 20px;
+      gap: 12px;
     }
 
-    .brand {
+    .nav-left {
       display: flex;
       align-items: center;
       gap: 10px;
     }
 
-    .brand-logo {
-      width: 34px;
-      height: 34px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #22c55e, #4ade80, #22c55e);
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #22c55e, #4ade80);
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: #022c22;
-      box-shadow: 0 8px 20px rgba(22, 163, 74, 0.8);
+      box-shadow: 0 8px 18px rgba(22, 163, 74, 0.9);
     }
 
     .brand-text-main {
       font-weight: 600;
-      font-size: 1rem;
+      font-size: 0.98rem;
     }
 
     .brand-text-sub {
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       color: var(--text-muted);
     }
 
-    .nav-right {
+    .nav-links {
       display: flex;
-      align-items: center;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
+      font-size: 0.85rem;
     }
 
-    .search {
-      position: relative;
-    }
-
-    .search input {
-      min-width: 200px;
-      padding: 7px 26px 7px 10px;
+    .nav-link {
+      padding: 5px 10px;
       border-radius: 999px;
-      border: 1px solid var(--border-soft);
-      background: #020617;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      transition: background 150ms ease-out, border-color 150ms ease-out, color 150ms ease-out,
+        transform 150ms ease-out;
+    }
+
+    .nav-link:hover {
       color: var(--text-main);
-      font-size: 0.8rem;
-      outline: none;
-    }
-
-    .search input::placeholder {
-      color: #6b7280;
-    }
-
-    .search-icon {
-      position: absolute;
-      right: 8px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 0.75rem;
-      color: #6b7280;
-      pointer-events: none;
-    }
-
-    .btn {
-      border-radius: 999px;
-      padding: 7px 14px;
-      border: 1px solid var(--border);
       background: #020617;
-      color: var(--text-main);
-      font-size: 0.8rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: transform 150ms ease-out, box-shadow 150ms ease-out, border-color 150ms ease-out;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #22c55e, #4ade80);
-      border-color: rgba(74, 222, 128, 0.9);
-      color: #022c22;
-      font-weight: 600;
-      box-shadow: 0 10px 24px rgba(22, 163, 74, 0.85);
-    }
-
-    .btn:hover {
+      border-color: var(--border-soft);
       transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.85);
     }
 
+    .nav-link.active {
+      background: var(--accent-soft);
+      border-color: rgba(34, 197, 94, 0.7);
+      color: #bbf7d0;
+      font-weight: 500;
+    }
+
+    /* MAIN LAYOUT */
     main {
-      margin-top: 14px;
-    }
-
-    /* HERO */
-    .hero {
-      padding: 18px 18px 16px;
-      border-radius: 22px;
-      border: 1px solid var(--border-soft);
-      background: radial-gradient(circle at top, #1e293b, #020617);
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
-      display: grid;
-      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
-      gap: 18px;
-    }
-
-    .hero h1 {
-      font-size: 1.6rem;
-      margin-bottom: 6px;
-    }
-
-    .hero p {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      max-width: 480px;
-    }
-
-    .hero-stats {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 10px;
-      font-size: 0.78rem;
-    }
-
-    .hero-stat {
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid var(--border-soft);
-    }
-
-    .hero-panel {
-      border-radius: 18px;
-      border: 1px solid var(--border-soft);
-      background: rgba(15, 23, 42, 0.96);
-      padding: 12px 12px 10px;
-      font-size: 0.8rem;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .hero-panel-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-    }
-
-    .hero-panel-games {
-      font-size: 1.4rem;
-      font-weight: 600;
-    }
-
-    .hero-panel-small {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-    }
-
-    .hero-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 4px;
-    }
-
-    .hero-tag {
-      padding: 4px 7px;
-      border-radius: 999px;
-      border: 1px solid var(--border-soft);
-      font-size: 0.72rem;
-      background: #020617;
-    }
-
-    /* GAMES SECTION */
-    #games-section {
-      margin-top: 26px;
-    }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
-    }
-
-    .section-header h2 {
-      font-size: 1.3rem;
-    }
-
-    .section-sub {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      max-width: 380px;
-    }
-
-    .toolbar-pill {
-      padding: 5px 9px;
-      border-radius: 999px;
-      border: 1px solid var(--border-soft);
-      background: #020617;
-      color: var(--text-muted);
-      font-size: 0.78rem;
-    }
-
-    .toolbar-toggle {
-      cursor: pointer;
-    }
-
-    .toolbar-toggle.active {
-      background: rgba(250, 204, 21, 0.08);
-      border-color: rgba(250, 204, 21, 0.8);
-      color: var(--accent-yellow);
-    }
-
-    .toolbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 12px;
-      font-size: 0.78rem;
-    }
-
-    .games-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 14px;
-    }
-
-    .game-card {
-      border-radius: 18px;
-      overflow: hidden;
-      background: rgba(15, 23, 42, 0.98);
-      border: 1px solid var(--border-soft);
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.9);
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      transition: transform 160ms ease-out, box-shadow 160ms ease-out, border-color 160ms ease-out;
-    }
-
-    .game-card:hover {
-      transform: translateY(-5px) translateX(1px);
-      box-shadow: 0 18px 42px rgba(15, 23, 42, 1);
-      border-color: rgba(129, 140, 248, 0.9);
-    }
-
-    .game-thumb-wrapper {
-      position: relative;
-      aspect-ratio: 16 / 9;
-      overflow: hidden;
-    }
-
-    .game-thumb {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      filter: saturate(1.3);
-    }
-
-    .game-thumb-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.15));
-      opacity: 0;
-      transition: opacity 160ms ease-out;
-    }
-
-    .game-card:hover .game-thumb-overlay {
-      opacity: 1;
-    }
-
-    .fav-btn {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      border: none;
-      border-radius: 999px;
-      width: 26px;
-      height: 26px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.9rem;
-      cursor: pointer;
-      background: rgba(15, 23, 42, 0.9);
-      color: #9ca3af;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.9);
-    }
-
-    .fav-btn.active {
-      color: var(--accent-yellow);
-    }
-
-    .game-meta {
-      padding: 9px 11px 9px;
-    }
-
-    .game-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-      margin-bottom: 2px;
-    }
-
-    .game-path {
-      font-size: 0.72rem;
-      color: #6b7280;
-      word-break: break-all;
-    }
-
-    .game-actions {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 6px;
-      font-size: 0.72rem;
-      color: var(--text-muted);
-    }
-
-    .game-play-pill {
-      padding: 3px 7px;
-      border-radius: 999px;
-      border: 1px solid var(--border-soft);
-    }
-
-    .empty-message {
-      margin-top: 12px;
-      padding: 10px 11px;
-      border-radius: 12px;
-      border: 1px dashed var(--border);
-      background: rgba(15, 23, 42, 0.96);
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      display: none;
-    }
-
-    #errorBox {
-      margin-top: 12px;
-      padding: 9px 10px;
-      border-radius: 12px;
-      border: 1px solid rgba(239, 68, 68, 0.85);
-      background: rgba(127, 29, 29, 0.55);
-      font-size: 0.8rem;
-      display: none;
-    }
-
-    /* FOOTER */
-    footer {
-      margin-top: 30px;
-      padding-top: 10px;
-      border-top: 1px solid rgba(31, 41, 55, 0.9);
-      font-size: 0.75rem;
-      color: #6b7280;
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    footer a {
-      color: #9ca3af;
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      color: #e5e7eb;
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 800px) {
-      .hero {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    @media (max-width: 640px) {
-      .nav {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .nav-right {
-        width: 100%;
-        justify-content: space-between;
-      }
-      .search input {
-        width: 100%;
-      }
-      .hero {
-        padding: 14px;
-      }
-      .page {
-        padding-inline: 14px;
-      }
-    }
-  </style>
-</head>
-<body>
-<header>
-  <div class="nav">
-    <div class="brand">
-      <div class="brand-logo">AR</div>
-      <div>
-        <div class="brand-text-main">Aurora Arcade</div>
-        <div class="brand-text-sub">Curated browser game collection</div>
-      </div>
-    </div>
-    <div class="nav-right">
-      <div class="search">
-        <input id="searchInput" type="search" placeholder="Search games..." autocomplete="off" />
-        <span class="search-icon">⌕</span>
-      </div>
-      <button class="btn btn-primary" id="randomBtn">🎲 Random game</button>
-    </div>
-  </div>
-</header>
-
-<main class="page">
-  <!-- HERO -->
-  <section class="hero">
-    <div>
-      <h1>Fast access to your favorite unblocked games.</h1>
-      <p>
-        Aurora Arcade organizes your games in a clean, responsive library with quick search,
-        favorites, and instant launch in a new tab.
-      </p>
-      <div class="hero-stats">
-        <div class="hero-stat"><strong id="totalGamesStat">0</strong> games available</div>
-        <div class="hero-stat"><strong>Instant launch</strong> from any device</div>
-        <div class="hero-stat">Favorites stay saved on this browser</div>
-      </div>
-    </div>
-    <div class="hero-panel">
-      <div class="hero-panel-row">
-        <span class="hero-panel-small">System status</span>
-        <span class="hero-panel-small" id="dataStatus">Initializing library…</span>
-      </div>
-      <div class="hero-panel-row">
-        <div>
-          <div class="hero-panel-small">Games in catalog</div>
-          <div class="hero-panel-games" id="gamesCountBig">0</div>
-        </div>
-        <div>
-          <div class="hero-panel-small">Marked as favorites</div>
-          <div class="hero-panel-games" id="favoritesCount">0</div>
-        </div>
-      </div>
-      <div class="hero-tags">
-        <span class="hero-tag">Lightweight, static front-end</span>
-        <span class="hero-tag">Optimized for modern browsers</span>
-        <span class="hero-tag">Easy to maintain and extend</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- GAMES -->
-  <section id="games-section">
-    <div class="section-header">
-      <div>
-        <h2>Game library</h2>
-        <p class="section-sub">
-          Browse, search, and launch games in a single click. Use the star icon to keep a personal
-          shortlist of your top titles.
-        </p>
-      </div>
-      <div class="toolbar-pill toolbar-toggle" id="favoritesToggle">
-        ★ Show favorites only
-      </div>
-    </div>
-
-    <div class="toolbar">
-      <span class="toolbar-pill" id="gamesCounterLabel">0 games</span>
-      <span class="toolbar-pill">Library managed from <code>games.json</code>.</span>
-    </div>
-
-    <div id="gamesGrid" class="games-grid">
-      <!-- Game cards injected by JavaScript -->
-    </div>
-
-    <div id="emptyMessage" class="empty-message">
-      No games match the current search and filter. Adjust your search term or turn off
-      “favorites only” to see more results.
-    </div>
-
-    <div id="errorBox"></div>
-  </section>
-
-  <footer>
-    <span>Aurora Arcade – browser game hub.</span>
-    <span>Managed by a simple JSON configuration.</span>
-  </footer>
-</main>
-
-<script>
-  (function () {
-    const gamesGrid = document.getElementById('gamesGrid');
-    const totalGamesStat = document.getElementById('totalGamesStat');
-    const gamesCountBig = document.getElementById('gamesCountBig');
-    const favoritesCountEl = document.getElementById('favoritesCount');
-    const gamesCounterLabel = document.getElementById('gamesCounterLabel');
-    const dataStatus = document.getElementById('dataStatus');
-    const emptyMessage = document.getElementById('emptyMessage');
-    const errorBox = document.getElementById('errorBox');
-    const searchInput = document.getElementById('searchInput');
-    const randomBtn = document.getElementById('randomBtn');
-    const favoritesToggle = document.getElementById('favoritesToggle');
-
-    let allGames = [];
-    let filteredGames = [];
-    let favorites = new Set();
-    let favoritesOnly = false;
-
-    // --- Favorites storage ---
-    function loadFavorites() {
-      try {
-        const raw = localStorage.getItem('auroraArcadeFavorites');
-        if (!raw) return;
-        const arr = JSON.parse(raw);
-        if (Array.isArray(arr)) {
-          favorites = new Set(arr);
-        }
-      } catch (err) {
-        console.warn('Could not load favorites from localStorage', err);
-      }
-    }
-
-    function saveFavorites() {
-      try {
-        localStorage.setItem('auroraArcadeFavorites', JSON.stringify(Array.from(favorites)));
-      } catch (err) {
-        console.warn('Could not save favorites', err);
-      }
-      favoritesCountEl.textContent = favorites.size;
-    }
-
-    function setStatus(message) {
-      dataStatus.textContent = message;
-    }
-
-    function showError(message) {
-      errorBox.textContent = message;
-      errorBox.style.display = 'block';
-    }
-
-    function clearError() {
-      errorBox.textContent = '';
-      errorBox.style.display = 'none';
-    }
-
-    // --- Card creation ---
-    function createGameCard(game) {
-      const card = document.createElement('article');
-      card.className = 'game-card';
-      card.dataset.html = game.html;
-      card.dataset.name = game.name.toLowerCase();
-
-      const thumbWrapper = document.createElement('div');
-      thumbWrapper.className = 'game-thumb-wrapper';
-
-      const img = document.createElement('img');
-      img.className = 'game-thumb';
-      img.src = game.image;
-      img.alt = game.name + ' thumbnail';
-
-      const overlay = document.createElement('div');
-      overlay.className = 'game-thumb-overlay';
-
-      const favBtn = document.createElement('button');
-      favBtn.type = 'button';
-      favBtn.className = 'fav-btn';
-      favBtn.innerHTML = '★';
-
-      if (favorites.has(game.html)) {
-        favBtn.classList.add('active');
-      }
-
-      favBtn.addEventListener('click', function (event) {
-        event.stopPropagation(); // don’t trigger the card click
-        const id = game.html;
-        if (favorites.has(id)) {
-          favorites.delete(id);
-          favBtn.classList.remove('active');
-        } else {
-          favorites.add(id);
-          favBtn.classList.add('active');
-        }
-        saveFavorites();
-        applyFilters(); // if "favorites only" is on, refresh the list
-      });
-
-      thumbWrapper.appendChild(img);
-      thumbWrapper.appendChild(overlay);
-      thumbWrapper.appendChild(favBtn);
-
-      const meta = document.createElement('div');
-      meta.className = 'game-meta';
-
-      const title = document.createElement('h3');
-      title.className = 'game-title';
-      title.textContent = game.name;
-
-      const path = document.createElement('div');
-      path.className = 'game-path';
-      path.textContent = game.html;
-
-      const actions = document.createElement('div');
-      actions.className = 'game-actions';
-
-      const playPill = document.createElement('span');
-      playPill.className = 'game-play-pill';
-      playPill.textContent = 'Open in new tab';
-
-      const favLabel = document.createElement('span');
-      favLabel.textContent = favorites.has(game.html)
-        ? 'Saved to favorites'
-        : 'Use ★ to save';
-
-      actions.appendChild(playPill);
-      actions.appendChild(favLabel);
-
-      meta.appendChild(title);
-      meta.appendChild(path);
-      meta.appendChild(actions);
-
-      card.appendChild(thumbWrapper);
-      card.appendChild(meta);
-
-      card.addEventListener('click', function () {
-        if (game.html) {
-          window.open(game.html, '_blank');
-        }
-      });
-
-      return card;
-    }
-
-    function renderGames(list) {
-      gamesGrid.innerHTML = '';
-
-      if (!list.length) {
-        emptyMessage.style.display = 'block';
-      } else {
-        emptyMessage.style.display = 'none';
-      }
-
-      list.forEach(game => {
-        gamesGrid.appendChild(createGameCard(game));
-      });
-
-      gamesCounterLabel.textContent = list.length + (list.length === 1 ? ' game' : ' games');
-      gamesCountBig.textContent = list.length;
-    }
-
-    function applyFilters() {
-      const query = searchInput.value.trim().toLowerCase();
-      filteredGames = allGames.filter(game => {
-        if (favoritesOnly && !favorites.has(game.html)) return false;
-        if (!query) return true;
-        return game.name.toLowerCase().includes(query);
-      });
-      renderGames(filteredGames);
-    }
-
-    // --- Load games.json ---
-    async function loadGamesJson() {
-      setStatus('Loading game catalog…');
-      clearError();
-
-      try {
-        // cache-buster so changes show up immediately
-        const response = await fetch('games.json?' + Date.now());
-        if (!response.ok) {
-          throw new Error('Could not load games.json (' + response.status + ').');
-        }
-        const data = await response.json();
-
-        // Accept either [ ... ] or { "games": [ ... ] }
-        const list = Array.isArray(data) ? data : data.games;
-        if (!Array.isArray(list)) {
-          throw new Error('games.json must contain an array or { "games": [...] }');
-        }
-
-        allGames = list.map((raw, index) => ({
-          name: String(raw.name || 'Untitled game ' + (index + 1)),
-          image: String(raw.image || 'images/placeholder.png'),
-          html: String(raw.html || '#')
-        }));
-
-        totalGamesStat.textContent = allGames.length;
-        gamesCountBig.textContent = allGames.length;
-        setStatus(
-          'Loaded ' +
-            allGames.length +
-            ' game' +
-            (allGames.length === 1 ? '' : 's') +
-            ' from configuration.'
-        );
-        applyFilters();
-      } catch (err) {
-        console.error(err);
-        setStatus('Catalog load failed');
-        showError(
-          'There was a problem loading the game catalog. ' +
-            'Verify that games.json is present next to index.html and that the JSON syntax is valid. ' +
-            'Details: ' +
-            err.message
-        );
-      }
-    }
-
-    // --- Events ---
-    searchInput.addEventListener('input', function () {
-      applyFilters();
-    });
-
-    randomBtn.addEventListener('click', function () {
-      const pool = filteredGames.length ? filteredGames : allGames;
-      if (!pool.length) {
-        alert('No games are available yet. Add entries to games.json to populate the library.');
-        return;
-      }
-      const randomIndex = Math.floor(Math.random() * pool.length);
-      const game = pool[randomIndex];
-      window.open(game.html, '_blank');
-    });
-
-    favoritesToggle.addEventListener('click', function () {
-      favoritesOnly = !favoritesOnly;
-      favoritesToggle.classList.toggle('active', favoritesOnly);
-      applyFilters();
-    });
-
-    // --- Init ---
-    loadFavorites();
-    favoritesCountEl.textContent = favorites.size;
-    loadGamesJson();
-  })();
-</script>
-</body>
-</html>
+      flex: 1;
+      displa
+::contentReference[oaicite:0]{index=0}
