@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <title>Aurora Arcade – Game Library</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <style>
     :root {
       --bg: #020617;
@@ -19,7 +18,11 @@
       --text-muted: #9ca3af;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -34,8 +37,12 @@
       padding: 16px 20px 40px;
     }
 
-    a { color: inherit; text-decoration: none; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
+    /* NAVBAR (matches home) */
     header {
       position: sticky;
       top: 0;
@@ -55,106 +62,469 @@
       gap: 16px;
     }
 
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
     .brand {
-      display: flex; align-items: center; gap: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .brand-logo {
-      width: 32px; height: 32px;
+      width: 32px;
+      height: 32px;
       border-radius: 10px;
       background: linear-gradient(135deg, #22c55e, #4ade80);
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 700; color: #022c22; font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: #022c22;
       box-shadow: 0 8px 18px rgba(22, 163, 74, 0.9);
     }
 
-    .nav-links { display: flex; gap: 8px; }
+    .brand-text-main {
+      font-weight: 600;
+      font-size: 0.98rem;
+    }
+
+    .brand-text-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 0.85rem;
+    }
 
     .nav-link {
-      padding: 5px 11px; border-radius: 999px;
-      color: var(--text-muted);
+      padding: 5px 11px;
+      border-radius: 999px;
       border: 1px solid transparent;
-      transition: 160ms;
+      color: var(--text-muted);
+      transition:
+        background 150ms ease-out,
+        border-color 150ms ease-out,
+        color 150ms ease-out,
+        transform 150ms ease-out;
     }
 
     .nav-link:hover {
-      background: #020617;
       color: var(--text-main);
+      background: #020617;
       border-color: var(--border-soft);
+      transform: translateY(-1px);
     }
 
     .nav-link.active {
       background: var(--accent-soft);
       border-color: rgba(34, 197, 94, 0.7);
       color: #bbf7d0;
-      font-weight: 600;
+      font-weight: 500;
     }
 
-    /* Search bar */
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .search {
+      position: relative;
+    }
+
     .search input {
+      min-width: 200px;
       padding: 7px 26px 7px 10px;
       border-radius: 999px;
       border: 1px solid var(--border-soft);
       background: #020617;
       color: var(--text-main);
+      font-size: 0.8rem;
+      outline: none;
     }
 
-    /* Game Grid */
-    .games-grid {
-      margin-top: 18px;
+    .search input::placeholder {
+      color: #6b7280;
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.75rem;
+      color: #6b7280;
+      pointer-events: none;
+    }
+
+    .btn {
+      border-radius: 999px;
+      padding: 7px 14px;
+      border: 1px solid var(--border);
+      background: #020617;
+      color: var(--text-main);
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition:
+        transform 150ms ease-out,
+        box-shadow 150ms ease-out,
+        border-color 150ms ease-out;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      border-color: rgba(74, 222, 128, 0.9);
+      color: #022c22;
+      font-weight: 600;
+      box-shadow: 0 10px 24px rgba(22, 163, 74, 0.85);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.85);
+    }
+
+    main {
+      margin-top: 14px;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 18px 18px 16px;
+      border-radius: 22px;
+      border: 1px solid var(--border-soft);
+      background: radial-gradient(circle at top, #1e293b, #020617);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
       gap: 18px;
     }
 
+    .hero h1 {
+      font-size: 1.6rem;
+      margin-bottom: 6px;
+    }
+
+    .hero p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      max-width: 480px;
+    }
+
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 10px;
+      font-size: 0.78rem;
+    }
+
+    .hero-stat {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border-soft);
+    }
+
+    .hero-panel {
+      border-radius: 18px;
+      border: 1px solid var(--border-soft);
+      background: rgba(15, 23, 42, 0.96);
+      padding: 12px 12px 10px;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .hero-panel-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .hero-panel-games {
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    .hero-panel-small {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .hero-tag {
+      padding: 4px 7px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      font-size: 0.72rem;
+      background: #020617;
+    }
+
+    /* GAMES SECTION */
+    #games-section {
+      margin-top: 26px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .section-header h2 {
+      font-size: 1.3rem;
+    }
+
+    .section-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      max-width: 380px;
+    }
+
+    .toolbar-pill {
+      padding: 5px 9px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: #020617;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+    }
+
+    .toolbar-toggle {
+      cursor: pointer;
+    }
+
+    .toolbar-toggle.active {
+      background: rgba(250, 204, 21, 0.08);
+      border-color: rgba(250, 204, 21, 0.8);
+      color: var(--accent-yellow);
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+      font-size: 0.78rem;
+    }
+
+    /* 🔹 UNIFORM GRID, 5px GAP, CENTERED */
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, 220px);
+      gap: 5px;               /* your requested spacing */
+      justify-content: center;/* keeps few cards clustered, not far apart */
+      margin-top: 4px;
+    }
+
+    /* 200x200 ICON CARDS */
     .game-card {
+      border-radius: 14px;
       background: rgba(15, 23, 42, 0.98);
       border: 1px solid var(--border-soft);
-      border-radius: 16px;
-      padding: 10px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.9);
       cursor: pointer;
-      transition: 150ms;
-      box-shadow: 0 8px 26px rgba(15, 23, 42, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px;
+      width: 220px;
+      margin: 0 auto;
+      transition:
+        transform 160ms ease-out,
+        box-shadow 160ms ease-out,
+        border-color 160ms ease-out;
     }
 
     .game-card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-5px) translateX(1px);
+      box-shadow: 0 18px 42px rgba(15, 23, 42, 1);
       border-color: rgba(129, 140, 248, 0.9);
     }
 
+    .game-thumb-wrapper {
+      position: relative;
+      margin-top: 4px;
+      width: auto;
+      height: auto;
+    }
+
     .game-thumb {
-      width: 200px; height: 200px;
-      border-radius: 12px;
+      width: 200px;
+      height: 200px;
       object-fit: cover;
       display: block;
-      margin: 0 auto;
+      filter: saturate(1.1);
+      border-radius: 12px;
+    }
+
+    .game-thumb-overlay {
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
+      background: linear-gradient(to top, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.15));
+      opacity: 0;
+      transition: opacity 160ms ease-out;
+    }
+
+    .game-card:hover .game-thumb-overlay {
+      opacity: 1;
     }
 
     .fav-btn {
       position: absolute;
-      top: 6px; right: 6px;
-      border: none; width: 24px; height: 24px;
+      top: 6px;
+      right: 6px;
+      border: none;
       border-radius: 999px;
-      background: #101826;
-      color: #aaa;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
       cursor: pointer;
+      background: rgba(15, 23, 42, 0.9);
+      color: #9ca3af;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.9);
     }
 
-    .fav-btn.active { color: var(--accent-yellow); }
+    .fav-btn.active {
+      color: var(--accent-yellow);
+    }
 
+    .game-meta {
+      padding: 6px 6px 4px;
+      text-align: center;
+    }
+
+    .game-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-top: 8px;
+      margin-bottom: 2px;
+    }
+
+    .game-path {
+      display: none;
+    }
+
+    .game-actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+    }
+
+    .game-play-pill {
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+    }
+
+    .empty-message {
+      margin-top: 12px;
+      padding: 10px 11px;
+      border-radius: 12px;
+      border: 1px dashed var(--border);
+      background: rgba(15, 23, 42, 0.96);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: none;
+    }
+
+    #errorBox {
+      margin-top: 12px;
+      padding: 9px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(239, 68, 68, 0.85);
+      background: rgba(127, 29, 29, 0.55);
+      font-size: 0.8rem;
+      display: none;
+    }
+
+    /* FOOTER */
     footer {
       margin-top: 30px;
-      border-top: 1px solid rgba(31, 41, 55, 0.9);
       padding-top: 10px;
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+      font-size: 0.75rem;
       color: #6b7280;
-      font-size: 0.78rem;
-      display: flex; justify-content: space-between;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    footer a {
+      color: #9ca3af;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: #e5e7eb;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .nav-right {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .search input {
+        width: 100%;
+      }
+      .hero {
+        padding: 14px;
+      }
+      .page {
+        padding-inline: 14px;
+      }
     }
   </style>
 </head>
-
 <body>
-
 <header>
   <div class="nav">
     <div class="nav-left">
@@ -170,152 +540,335 @@
         <a href="./" class="nav-link active">Games</a>
       </nav>
     </div>
-
     <div class="nav-right">
       <div class="search">
-        <input id="searchInput" type="search" placeholder="Search games…" />
+        <input id="searchInput" type="search" placeholder="Search games..." autocomplete="off" />
+        <span class="search-icon">⌕</span>
       </div>
-      <button class="btn btn-primary" id="randomBtn">🎲 Random Game</button>
+      <button class="btn btn-primary" id="randomBtn">🎲 Random game</button>
     </div>
   </div>
 </header>
 
 <main class="page">
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <h1>Fast access to your favorite unblocked games.</h1>
+      <p>
+        Aurora Arcade organizes your games in a clean, responsive library with quick search,
+        favorites, and instant launch.
+      </p>
+      <div class="hero-stats">
+        <div class="hero-stat"><strong id="totalGamesStat">0</strong> games available</div>
+        <div class="hero-stat"><strong>Instant launch</strong> from any device</div>
+        <div class="hero-stat">Favorites stay saved on this browser</div>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <div class="hero-panel-row">
+        <span class="hero-panel-small">System status</span>
+        <span class="hero-panel-small" id="dataStatus">Initializing library…</span>
+      </div>
+      <div class="hero-panel-row">
+        <div>
+          <div class="hero-panel-small">Games in catalog</div>
+          <div class="hero-panel-games" id="gamesCountBig">0</div>
+        </div>
+        <div>
+          <div class="hero-panel-small">Marked as favorites</div>
+          <div class="hero-panel-games" id="favoritesCount">0</div>
+        </div>
+      </div>
+      <div class="hero-tags">
+        <span class="hero-tag">Lightweight, static front-end</span>
+        <span class="hero-tag">Optimized for modern browsers</span>
+        <span class="hero-tag">Easy to maintain and extend</span>
+      </div>
+    </div>
+  </section>
 
-  <h2 style="margin-top:18px; margin-bottom:6px;">Game Library</h2>
-  <p style="color:var(--text-muted); margin-bottom:14px;">Search, browse, and launch games instantly.</p>
+  <!-- GAMES -->
+  <section id="games-section">
+    <div class="section-header">
+      <div>
+        <h2>Game library</h2>
+        <p class="section-sub">
+          Browse, search, and launch games in a single click. Use the star icon to keep a personal
+          shortlist of your top titles.
+        </p>
+      </div>
+      <div class="toolbar-pill toolbar-toggle" id="favoritesToggle">
+        ★ Show favorites only
+      </div>
+    </div>
 
-  <div id="gamesGrid" class="games-grid"></div>
+    <div class="toolbar">
+      <span class="toolbar-pill" id="gamesCounterLabel">0 games</span>
+      <span class="toolbar-pill">Library managed from <code>games.json</code>.</span>
+    </div>
 
-  <div id="emptyMessage" style="display:none; margin-top:12px; padding:12px; border-radius:12px; background:#0f172a; border:1px dashed #555;">
-    No games match your search.
-  </div>
+    <div id="gamesGrid" class="games-grid">
+      <!-- Cards injected by JS -->
+    </div>
 
+    <div id="emptyMessage" class="empty-message">
+      No games match the current search and filter. Adjust your search term or turn off
+      “favorites only” to see more results.
+    </div>
+
+    <div id="errorBox"></div>
+  </section>
+
+  <footer>
+    <span>Aurora Arcade – browser game hub.</span>
+    <span>Managed by a simple JSON configuration.</span>
+  </footer>
 </main>
 
-<footer>
-  <span>Aurora Arcade – browser game hub.</span>
-  <span>Powered by <code>games.json</code></span>
-</footer>
-
 <script>
-(function () {
-  const gamesGrid = document.getElementById("gamesGrid");
-  const searchInput = document.getElementById("searchInput");
-  const randomBtn = document.getElementById("randomBtn");
-  const emptyMessage = document.getElementById("emptyMessage");
+  (function () {
+    const gamesGrid = document.getElementById('gamesGrid');
+    const totalGamesStat = document.getElementById('totalGamesStat');
+    const gamesCountBig = document.getElementById('gamesCountBig');
+    const favoritesCountEl = document.getElementById('favoritesCount');
+    const gamesCounterLabel = document.getElementById('gamesCounterLabel');
+    const dataStatus = document.getElementById('dataStatus');
+    const emptyMessage = document.getElementById('emptyMessage');
+    const errorBox = document.getElementById('errorBox');
+    const searchInput = document.getElementById('searchInput');
+    const randomBtn = document.getElementById('randomBtn');
+    const favoritesToggle = document.getElementById('favoritesToggle');
 
-  let allGames = [];
-  let filteredGames = [];
-  let favorites = new Set(JSON.parse(localStorage.getItem("aaFavs") || "[]"));
+    let allGames = [];
+    let filteredGames = [];
+    let favorites = new Set();
+    let favoritesOnly = false;
 
-  function saveFavs() {
-    localStorage.setItem("aaFavs", JSON.stringify([...favorites]));
-  }
-
-  /** OPEN GAME USING load.html **/
-  function openGame(game) {
-    const url =
-      "../load.html?game=" +
-      encodeURIComponent(game.html) +
-      "&name=" +
-      encodeURIComponent(game.name);
-    window.location.href = url;
-  }
-
-  /** CREATE GAME CARD **/
-  function createGameCard(game) {
-    const card = document.createElement("div");
-    card.className = "game-card";
-
-    const thumb = document.createElement("img");
-    thumb.className = "game-thumb";
-    thumb.src = game.image;
-    thumb.alt = game.name;
-
-    const favBtn = document.createElement("button");
-    favBtn.className = "fav-btn";
-    favBtn.innerText = "★";
-    if (favorites.has(game.html)) favBtn.classList.add("active");
-
-    favBtn.onclick = (e) => {
-      e.stopPropagation();
-      if (favorites.has(game.html)) {
-        favorites.delete(game.html);
-        favBtn.classList.remove("active");
-      } else {
-        favorites.add(game.html);
-        favBtn.classList.add("active");
+    function loadFavorites() {
+      try {
+        const raw = localStorage.getItem('auroraArcadeFavorites');
+        if (!raw) return;
+        const arr = JSON.parse(raw);
+        if (Array.isArray(arr)) favorites = new Set(arr);
+      } catch (err) {
+        console.warn('Could not load favorites from localStorage', err);
       }
-      saveFavs();
-    };
-
-    const wrapper = document.createElement("div");
-    wrapper.style.position = "relative";
-    wrapper.appendChild(thumb);
-    wrapper.appendChild(favBtn);
-
-    const title = document.createElement("h3");
-    title.style.textAlign = "center";
-    title.style.marginTop = "10px";
-    title.style.fontSize = "0.95rem";
-    title.textContent = game.name;
-
-    card.appendChild(wrapper);
-    card.appendChild(title);
-
-    card.addEventListener("click", () => openGame(game));
-
-    return card;
-  }
-
-  /** RENDER GAMES **/
-  function render(list) {
-    gamesGrid.innerHTML = "";
-    if (!list.length) {
-      emptyMessage.style.display = "block";
-      return;
     }
-    emptyMessage.style.display = "none";
 
-    list.forEach((g) => gamesGrid.appendChild(createGameCard(g)));
-  }
-
-  /** SEARCH **/
-  searchInput.addEventListener("input", () => {
-    const q = searchInput.value.toLowerCase();
-    filteredGames = allGames.filter((g) =>
-      g.name.toLowerCase().includes(q)
-    );
-    render(filteredGames);
-  });
-
-  /** RANDOM GAME **/
-  randomBtn.addEventListener("click", () => {
-    const list = filteredGames.length ? filteredGames : allGames;
-    if (!list.length) return;
-    const random = list[Math.floor(Math.random() * list.length)];
-    openGame(random);
-  });
-
-  /** LOAD JSON **/
-  async function loadJSON() {
-    try {
-      const res = await fetch("games.json?" + Date.now());
-      const json = await res.json();
-      allGames = Array.isArray(json) ? json : json.games;
-      filteredGames = allGames;
-      render(allGames);
-    } catch (err) {
-      console.error(err);
-      emptyMessage.innerText = "Failed to load games.json";
-      emptyMessage.style.display = "block";
+    function saveFavorites() {
+      try {
+        localStorage.setItem('auroraArcadeFavorites', JSON.stringify(Array.from(favorites)));
+      } catch (err) {
+        console.warn('Could not save favorites', err);
+      }
+      favoritesCountEl.textContent = favorites.size;
     }
-  }
 
-  loadJSON();
-})();
+    function setStatus(message) {
+      dataStatus.textContent = message;
+    }
+
+    function showError(message) {
+      errorBox.textContent = message;
+      errorBox.style.display = 'block';
+    }
+
+    function clearError() {
+      errorBox.textContent = '';
+      errorBox.style.display = 'none';
+    }
+
+    /* 🔹 open game via load.html */
+    function openGame(game) {
+      if (!game || !game.html) return;
+      const url =
+        '../load.html?game=' +
+        encodeURIComponent(game.html) +
+        '&name=' +
+        encodeURIComponent(game.name);
+      window.location.href = url;
+    }
+
+    function createGameCard(game) {
+      const card = document.createElement('article');
+      card.className = 'game-card';
+      card.dataset.html = game.html;
+      card.dataset.name = game.name.toLowerCase();
+
+      const thumbWrapper = document.createElement('div');
+      thumbWrapper.className = 'game-thumb-wrapper';
+
+      const img = document.createElement('img');
+      img.className = 'game-thumb';
+      img.src = game.image;
+      img.alt = game.name + ' thumbnail';
+
+      const overlay = document.createElement('div');
+      overlay.className = 'game-thumb-overlay';
+
+      const favBtn = document.createElement('button');
+      favBtn.type = 'button';
+      favBtn.className = 'fav-btn';
+      favBtn.innerHTML = '★';
+
+      if (favorites.has(game.html)) {
+        favBtn.classList.add('active');
+      }
+
+      favBtn.addEventListener('click', function (event) {
+        event.stopPropagation();
+        const id = game.html;
+        if (favorites.has(id)) {
+          favorites.delete(id);
+          favBtn.classList.remove('active');
+        } else {
+          favorites.add(id);
+          favBtn.classList.add('active');
+        }
+        saveFavorites();
+        applyFilters();
+      });
+
+      thumbWrapper.appendChild(img);
+      thumbWrapper.appendChild(overlay);
+      thumbWrapper.appendChild(favBtn);
+
+      const meta = document.createElement('div');
+      meta.className = 'game-meta';
+
+      const title = document.createElement('h3');
+      title.className = 'game-title';
+      title.textContent = game.name;
+
+      const path = document.createElement('div');
+      path.className = 'game-path';
+      path.textContent = game.html;
+
+      const actions = document.createElement('div');
+      actions.className = 'game-actions';
+
+      const playPill = document.createElement('span');
+      playPill.className = 'game-play-pill';
+      playPill.textContent = 'Open';
+
+      const favLabel = document.createElement('span');
+      favLabel.textContent = favorites.has(game.html)
+        ? 'Saved to favorites'
+        : 'Use ★ to save';
+
+      actions.appendChild(playPill);
+      actions.appendChild(favLabel);
+
+      meta.appendChild(title);
+      meta.appendChild(path);
+      meta.appendChild(actions);
+
+      card.appendChild(thumbWrapper);
+      card.appendChild(meta);
+
+      card.addEventListener('click', function () {
+        openGame(game);
+      });
+
+      return card;
+    }
+
+    function renderGames(list) {
+      gamesGrid.innerHTML = '';
+
+      if (!list.length) {
+        emptyMessage.style.display = 'block';
+      } else {
+        emptyMessage.style.display = 'none';
+      }
+
+      list.forEach(game => {
+        gamesGrid.appendChild(createGameCard(game));
+      });
+
+      gamesCounterLabel.textContent = list.length + (list.length === 1 ? ' game' : ' games');
+      gamesCountBig.textContent = list.length;
+    }
+
+    function applyFilters() {
+      const query = searchInput.value.trim().toLowerCase();
+      filteredGames = allGames.filter(game => {
+        if (favoritesOnly && !favorites.has(game.html)) return false;
+        if (!query) return true;
+        return game.name.toLowerCase().includes(query);
+      });
+      renderGames(filteredGames);
+    }
+
+    async function loadGamesJson() {
+      setStatus('Loading game catalog…');
+      clearError();
+
+      try {
+        const response = await fetch('games.json?' + Date.now());
+        if (!response.ok) {
+          throw new Error('Could not load games.json (' + response.status + ').');
+        }
+        const data = await response.json();
+        const list = Array.isArray(data) ? data : data.games;
+        if (!Array.isArray(list)) {
+          throw new Error('games.json must contain an array or { "games": [...] }');
+        }
+
+        allGames = list.map((raw, index) => ({
+          name: String(raw.name || 'Untitled game ' + (index + 1)),
+          image: String(raw.image || 'images/placeholder.png'),
+          html: String(raw.html || '#')
+        }));
+
+        totalGamesStat.textContent = allGames.length;
+        gamesCountBig.textContent = allGames.length;
+        setStatus(
+          'Loaded ' +
+            allGames.length +
+            ' game' +
+            (allGames.length === 1 ? '' : 's') +
+            ' from configuration.'
+        );
+        applyFilters();
+      } catch (err) {
+        console.error(err);
+        setStatus('Catalog load failed');
+        showError(
+          'There was a problem loading the game catalog. ' +
+            'Verify that games.json is present next to index.html and that the JSON syntax is valid. ' +
+            'Details: ' +
+            err.message
+        );
+      }
+    }
+
+    searchInput.addEventListener('input', function () {
+      applyFilters();
+    });
+
+    randomBtn.addEventListener('click', function () {
+      const pool = filteredGames.length ? filteredGames : allGames;
+      if (!pool.length) {
+        alert('No games are available yet. Add entries to games.json to populate the library.');
+        return;
+      }
+      const randomIndex = Math.floor(Math.random() * pool.length);
+      const game = pool[randomIndex];
+      openGame(game);
+    });
+
+    favoritesToggle.addEventListener('click', function () {
+      favoritesOnly = !favoritesOnly;
+      favoritesToggle.classList.toggle('active', favoritesOnly);
+      applyFilters();
+    });
+
+    loadFavorites();
+    favoritesCountEl.textContent = favorites.size;
+    loadGamesJson();
+  })();
 </script>
-
 </body>
 </html>
