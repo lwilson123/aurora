@@ -37,7 +37,12 @@
       padding: 16px 20px 40px;
     }
 
-    /* NAVBAR */
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* NAVBAR (matches home) */
     header {
       position: sticky;
       top: 0;
@@ -48,11 +53,20 @@
     }
 
     .nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 10px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      padding: 10px 20px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
     }
 
     .brand {
@@ -62,27 +76,57 @@
     }
 
     .brand-logo {
-      width: 34px;
-      height: 34px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #22c55e, #4ade80, #22c55e);
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #22c55e, #4ade80);
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: #022c22;
-      box-shadow: 0 8px 20px rgba(22, 163, 74, 0.8);
+      box-shadow: 0 8px 18px rgba(22, 163, 74, 0.9);
     }
 
     .brand-text-main {
       font-weight: 600;
-      font-size: 1rem;
+      font-size: 0.98rem;
     }
 
     .brand-text-sub {
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       color: var(--text-muted);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 0.85rem;
+    }
+
+    .nav-link {
+      padding: 5px 11px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      transition: background 150ms ease-out, border-color 150ms ease-out, color 150ms ease-out,
+        transform 150ms ease-out;
+    }
+
+    .nav-link:hover {
+      color: var(--text-main);
+      background: #020617;
+      border-color: var(--border-soft);
+      transform: translateY(-1px);
+    }
+
+    .nav-link.active {
+      background: var(--accent-soft);
+      border-color: rgba(34, 197, 94, 0.7);
+      color: #bbf7d0;
+      font-weight: 500;
     }
 
     .nav-right {
@@ -291,7 +335,7 @@
       gap: 18px;
     }
 
-    /* 200x200 ICON GAME CARDS */
+    /* 200x200 ICON CARDS */
     .game-card {
       border-radius: 14px;
       background: rgba(15, 23, 42, 0.98);
@@ -302,7 +346,7 @@
       flex-direction: column;
       align-items: center;
       padding: 10px;
-      width: 220px; /* slightly wider than the icon */
+      width: 220px;
       margin: 0 auto;
       transition: transform 160ms ease-out, box-shadow 160ms ease-out, border-color 160ms ease-out;
     }
@@ -376,7 +420,6 @@
       margin-bottom: 2px;
     }
 
-    /* hide raw path for cleaner look */
     .game-path {
       display: none;
     }
@@ -472,12 +515,18 @@
 <body>
 <header>
   <div class="nav">
-    <div class="brand">
-      <div class="brand-logo">AR</div>
-      <div>
-        <div class="brand-text-main">Aurora Arcade</div>
-        <div class="brand-text-sub">Curated browser game collection</div>
+    <div class="nav-left">
+      <div class="brand">
+        <div class="brand-logo">AR</div>
+        <div>
+          <div class="brand-text-main">Aurora Arcade</div>
+          <div class="brand-text-sub">Curated browser game collection</div>
+        </div>
       </div>
+      <nav class="nav-links">
+        <a href="../" class="nav-link">Home</a>
+        <a href="./" class="nav-link active">Games</a>
+      </nav>
     </div>
     <div class="nav-right">
       <div class="search">
