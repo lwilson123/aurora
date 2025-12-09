@@ -1,12 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512">
   <rect width="512" height="512" fill="none"/>
-  <g fill="none" stroke="#22c55e" stroke-opacity="0.08" stroke-width="1.4">
+  <g fill="none" stroke="#22c55e" stroke-opacity="0.20" stroke-width="1.4">
     <path d="M-50 80 C100 20 220 60 360 80 S540 140 660 90" />
     <path d="M-70 180 C80 130 240 160 350 190 S520 240 670 200" />
     <path d="M-90 300 C120 250 260 280 400 310 S540 360 690 320" />
   </g>
-  <g fill="none" stroke="#4ade80" stroke-opacity="0.05" stroke-width="1">
+  <g fill="none" stroke="#4ade80" stroke-opacity="0.20" stroke-width="1">
     <path d="M120 -100 C160 80 210 180 230 300 C240 380 240 460 270 620" />
     <path d="M340 -120 C360 60 410 180 430 280 C450 380 470 460 500 620" />
   </g>
 </svg>
+
