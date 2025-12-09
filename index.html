@@ -28,26 +28,46 @@
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
-  /* LIGHTER AURORA GRADIENT */
+  /* Gradient then topo */
   background-image:
     radial-gradient(circle at top, rgba(17, 24, 39, 0.35) 0%, rgba(2, 6, 23, 0.55) 45%, rgba(0, 0, 0, 0.75) 100%),
     url("topography.svg");
 
+  /* tile size MUST match the SVG size */
+  background-size: cover, 512px 512px;
+
+  /* repeat topo infinitely */
   background-repeat: no-repeat, repeat;
-  background-size: cover, 600px;
 
-  /* SCREEN MODE makes topo lines ALWAYS visible */
-  background-blend-mode: screen;
+  /* HU trick: multiply so topo stays bright */
+  background-blend-mode: multiply;
 
-  background-position: center, 0 0;
-  animation: topoMove 35s linear infinite;
+  /* movement pattern similar to HU */
+  animation: topoMove 60s linear infinite;
 
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-
   background-color: #020617;
   color: var(--text-main);
+}
+
+@keyframes topoMove {
+  0% {
+    background-position: center, 0px 0px;
+  }
+  25% {
+    background-position: center, 512px 256px;
+  }
+  50% {
+    background-position: center, 1024px 512px;
+  }
+  75% {
+    background-position: center, 512px 768px;
+  }
+  100% {
+    background-position: center, 0px 0px;
+  }
 }
 
 
