@@ -22,19 +22,27 @@
       padding: 0;
     }
 
- body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background-color: #020617;
-  /* Aurora-style gradient + topo pattern */
-  background-image:
+     body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+    /* Base background */
+    background-color: #020617;
+
+    /* Aurora gradient (same as before) */
+    background-image:
     radial-gradient(circle at top, #111827 0, #020617 45%, #000 100%),
-    url("/aurora/topography.svg");
-  background-repeat: no-repeat, repeat;
-  background-size: cover, 420px 420px;
-  background-attachment: fixed;
-  color: var(--text-main);
-  min-height: 100vh;
-}
+    url("./assets/topography.svg");
+
+    /* Do not stretch, keep pattern subtle */
+    background-size: cover, 500px;
+    background-repeat: no-repeat, repeat;
+
+    /* Blend topo into gradient */
+    background-blend-mode: overlay;
+
+    color: var(--text-main);
+    min-height: 100vh;
+    }
 
 
     a {
