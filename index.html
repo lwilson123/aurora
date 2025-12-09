@@ -5,319 +5,163 @@
   <title>Aurora Arcade – Home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+  <!-- PIXI.js for interactive background -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.2.4/pixi.min.js"></script>
+
 <style>
-:root {
-  --bg: #020617;
-  --bg-soft: #020617;
-  --accent: #22c55e;
-  --accent-soft: rgba(34, 197, 94, 0.1);
-  --accent-strong: #22c55e;
-  --text-main: #e5e7eb;
-  --text-muted: #9ca3af;
-  --border-soft: rgba(148, 163, 184, 0.35);
-}
+    :root {
+      --bg: #020617;
+      --bg-soft: #020617;
+      --accent: #22c55e;
+      --accent-soft: rgba(34, 197, 94, 0.1);
+      --accent-strong: #22c55e;
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-soft: rgba(148, 163, 184, 0.35);
+    }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-/* ===============================
-   FIXED BACKGROUND — MOVING TOPO
-   =============================== */
+    /* ===== BACKGROUND CANVAS ===== */
+    #topoCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+    }
 
-body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: radial-gradient(circle at top,
-    rgba(17, 24, 39, 0.10) 0%,
-    rgba(2, 6, 23, 0.18) 40%,
-    rgba(0, 0, 0, 0.22) 100%
-  );
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-color: #020617;
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top,
+        rgba(17, 24, 39, 0.10) 0%,
+        rgba(2, 6, 23, 0.18) 40%,
+        rgba(0, 0, 0, 0.22) 100%
+      );
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-color: #020617;
 
-  position: relative;
-  overflow-x: hidden;
-  min-height: 100vh;
-  color: var(--text-main);
-}
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      color: var(--text-main);
+    }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
+    /* NAVBAR */
+    header {
+      border-bottom: 1px solid rgba(15, 23, 42, 1);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(18px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
 
-  /* TOPOGRAPHY IMAGE */
-  background-image: url("topography.svg");
-  background-size: 256px 256px;
-  background-repeat: repeat;
+    .nav {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
 
-  /* START POSITION FOR ANIMATION */
-  background-position: 0px 0px;
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
 
-  opacity: 0.33;
-  z-index: -1;
-  pointer-events: none;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-  /* ANIMATION APPLIED TO THIS LAYER */
-  animation: topoMove 55s linear infinite;
-}
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: #022c22;
+      box-shadow: 0 8px 18px rgba(22, 163, 74, 0.9);
+    }
 
+    .nav-link {
+      padding: 5px 11px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      transition: 150ms ease;
+    }
 
-@keyframes topoMove {
-  0%   { background-position: 0px 0px; }
-  25%  { background-position: 300px 180px; }
-  50%  { background-position: 600px 360px; }
-  75%  { background-position: 300px 540px; }
-  100% { background-position: 0px 0px; }
-}
+    .nav-link:hover {
+      color: var(--text-main);
+      background: #020617;
+      border-color: var(--border-soft);
+      transform: translateY(-1px);
+    }
 
-/* NAVBAR */
-header {
-  border-bottom: 1px solid rgba(15, 23, 42, 1);
-  background: rgba(15, 23, 42, 0.96);
-  backdrop-filter: blur(18px);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
+    .nav-link.active {
+      background: var(--accent-soft);
+      border-color: rgba(34, 197, 94, 0.6);
+      color: #bbf7d0;
+      font-weight: 500;
+    }
 
-.nav {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 10px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
+    /* HERO SECTION */
+    main {
+      width: 100%;
+      padding: 24px 16px 32px;
+      min-height: calc(100vh - 80px);
+    }
 
-.nav-left {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  flex-wrap: wrap;
-}
+    .hero {
+      max-width: 1120px;
+      width: 100%;
+      border-radius: 22px;
+      border: 1px solid var(--border-soft);
+      background: rgba(15, 23, 42, 0.75);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 2fr 1.3fr;
+      gap: 20px;
+      backdrop-filter: blur(12px);
+    }
 
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+    .hero-highlight {
+      color: var(--accent);
+    }
 
-.brand-logo {
-  width: 32px;
-  height: 32px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #22c55e, #4ade80);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 0.85rem;
-  color: #022c22;
-  box-shadow: 0 8px 18px rgba(22, 163, 74, 0.9);
-}
-
-.brand-text-main {
-  font-weight: 600;
-  font-size: 0.98rem;
-}
-
-.brand-text-sub {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-}
-
-.nav-links {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  font-size: 0.85rem;
-}
-
-.nav-link {
-  padding: 5px 11px;
-  border-radius: 999px;
-  border: 1px solid transparent;
-  color: var(--text-muted);
-  transition: 0.15s ease;
-}
-
-.nav-link:hover {
-  color: var(--text-main);
-  background: #020617;
-  border-color: var(--border-soft);
-  transform: translateY(-1px);
-}
-
-.nav-link.active {
-  background: var(--accent-soft);
-  border-color: rgba(34, 197, 94, 0.7);
-  color: #bbf7d0;
-  font-weight: 500;
-}
-
-.nav-right {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  border-radius: 999px;
-  padding: 7px 14px;
-  font-size: 0.82rem;
-  border: 1px solid var(--border-soft);
-  background: #020617;
-  color: var(--text-main);
-  cursor: pointer;
-  transition: 0.15s ease;
-}
-
-.btn-primary {
-  background: linear-gradient(135deg, #22c55e, #4ade80);
-  border-color: rgba(74, 222, 128, 0.9);
-  color: #022c22;
-  font-weight: 600;
-  box-shadow: 0 12px 28px rgba(22, 163, 74, 0.9);
-}
-
-.btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.95);
-}
-
-.btn-primary:hover {
-  box-shadow: 0 14px 34px rgba(22, 163, 74, 1);
-}
-
-main {
-  width: 100%;
-  padding: 24px 16px 32px;
-  min-height: calc(100vh - 80px);
-}
-
-.hero {
-  max-width: 1120px;
-  width: 100%;
-  border-radius: 22px;
-  border: 1px solid var(--border-soft);
-  background: radial-gradient(circle at top, #1f2937, #020617);
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
-  padding: 20px;
-  display: grid;
-  grid-template-columns: 2fr 1.3fr;
-  gap: 20px;
-}
-
-.hero-main {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.eyebrow {
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #a5b4fc;
-}
-
-h1 {
-  font-size: 1.9rem;
-  line-height: 1.2;
-}
-
-.hero-highlight {
-  color: var(--accent-strong);
-}
-
-.hero-text {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  max-width: 520px;
-}
-
-.hero-buttons {
-  margin-top: 6px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.tag-row {
-  margin-top: 6px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  font-size: 0.78rem;
-}
-
-.tag-pill {
-  padding: 4px 8px;
-  border-radius: 999px;
-  border: 1px solid var(--border-soft);
-  background: #020617;
-  color: var(--text-muted);
-}
-
-.hero-side {
-  border-radius: 18px;
-  border: 1px solid var(--border-soft);
-  background: rgba(15, 23, 42, 0.96);
-  padding: 12px;
-  font-size: 0.8rem;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.hero-list {
-  margin-top: 4px;
-  display: grid;
-  gap: 4px;
-}
-
-.hero-list-item {
-  padding: 6px;
-  border-radius: 10px;
-  background: #020617;
-  border: 1px solid rgba(31, 41, 55, 1);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-footer {
-  border-top: 1px solid rgba(15, 23, 42, 1);
-  padding: 12px;
-  font-size: 0.78rem;
-  color: #6b7280;
-  text-align: center;
-  background: #020617;
-}
-
-footer strong {
-  color: var(--text-main);
-}
-
-@media (max-width: 900px) {
-  .hero {
-    grid-template-columns: 1fr;
-  }
-}
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 16px;
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
 </style>
-
 </head>
 
 <body>
+
+<!-- INTERACTIVE BACKGROUND -->
+<canvas id="topoCanvas"></canvas>
+
+<!-- NAVBAR -->
 <header>
   <div class="nav">
     <div class="nav-left">
@@ -328,6 +172,7 @@ footer strong {
           <div class="brand-text-sub">Unblocked games hub</div>
         </div>
       </div>
+
       <nav class="nav-links">
         <a href="./" class="nav-link active">Home</a>
         <a href="games/" class="nav-link">Games</a>
@@ -335,50 +180,86 @@ footer strong {
     </div>
 
     <div class="nav-right">
-      <a href="games/" class="btn btn-primary">
-        <span class="btn-icon">🎮</span>
-        <span>Open Games Library</span>
-      </a>
+      <a href="games/" class="btn btn-primary">🎮 Open Games Library</a>
     </div>
   </div>
 </header>
 
+<!-- MAIN -->
 <main>
   <section class="hero">
-    <div class="hero-main">
-      <div class="eyebrow">Welcome</div>
-      <h1>Welcome to <span class="hero-highlight">Aurora Arcade</span><br />your unblocked games collection.</h1>
-      <p class="hero-text">
-        This is your landing page for Aurora Arcade. Jump straight into the games library.
-      </p>
-
-      <div class="hero-buttons">
-        <a href="games/" class="btn btn-primary">▶ Play Games</a>
-        <a href="games/" class="btn">⭐ View All Titles</a>
-      </div>
-
-      <div class="tag-row">
-        <span class="tag-pill">Aurora theme</span>
-        <span class="tag-pill">Fast loading</span>
-        <span class="tag-pill">Unblocked</span>
-      </div>
+    <div>
+      <h2>Welcome to <span class="hero-highlight">Aurora Arcade</span></h2>
+      <p>Your unblocked games collection.</p>
+      <br>
+      <a href="games/" class="btn btn-primary">▶ Play Games</a>
     </div>
 
-    <aside class="hero-side">
+    <aside>
       <strong>Popular picks</strong>
-      <div class="hero-list">
-        <div class="hero-list-item"><span>1v1.lol</span><span class="hero-list-pill">PVP</span></div>
-        <div class="hero-list-item"><span>Drift Hunters</span><span class="hero-list-pill">Racing</span></div>
-        <div class="hero-list-item"><span>JustFall.lol</span><span class="hero-list-pill">Party</span></div>
-        <div class="hero-list-item"><span>Drive Mad</span><span class="hero-list-pill">Physics</span></div>
-      </div>
+      <ul>
+        <li>1v1.lol</li>
+        <li>Drift Hunters</li>
+        <li>JustFall.lol</li>
+        <li>Drive Mad</li>
+      </ul>
     </aside>
   </section>
 </main>
 
 <footer>
-  © <strong>Aurora Arcade</strong>
+  © <strong>Aurora Arcade</strong> – Unblocked games hub.
 </footer>
+
+
+<!-- INTERACTIVE BACKGROUND SCRIPT -->
+<script>
+const app = new PIXI.Application({
+  view: document.getElementById("topoCanvas"),
+  resizeTo: window,
+  transparent: true,
+  antialias: true
+});
+
+// Topography texture
+const texture = PIXI.Texture.from("topography.svg");
+
+// Scrolling background
+const topo = new PIXI.TilingSprite(texture, window.innerWidth, window.innerHeight);
+topo.alpha = 0.33;
+app.stage.addChild(topo);
+
+// Distortion layer
+const distortion = PIXI.Sprite.from("topography.svg");
+const filter = new PIXI.filters.DisplacementFilter(distortion);
+
+distortion.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT;
+distortion.scale.set(2);
+
+app.stage.addChild(distortion);
+topo.filters = [filter];
+
+let mouseX = 0;
+let mouseY = 0;
+
+// Mouse tracking
+document.addEventListener("mousemove", (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+});
+
+// Animation loop
+app.ticker.add(() => {
+  topo.tilePosition.x += 0.15;
+  topo.tilePosition.y += 0.09;
+
+  distortion.x = mouseX - window.innerWidth / 2;
+  distortion.y = mouseY - window.innerHeight / 2;
+
+  filter.scale.x = (mouseX / window.innerWidth - 0.5) * 200;
+  filter.scale.y = (mouseY / window.innerHeight - 0.5) * 200;
+});
+</script>
 
 </body>
 </html>
