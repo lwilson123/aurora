@@ -1,220 +1,338 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Aurora Arcade – Home</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<style>
-  :root {
-    --bg: #020617;
-    --accent: #22c55e;
-    --accent-soft: rgba(34, 197, 94, 0.1);
-    --accent-strong: #22c55e;
-    --text-main: #e5e7eb;
-    --text-muted: #9ca3af;
-    --border-soft: rgba(148, 163, 184, 0.35);
-  }
+  <style>
+    :root {
+      --bg: #020617;
+      --accent: #22c55e;
+      --accent-soft: rgba(34, 197, 94, 0.12);
+      --accent-strong: #22c55e;
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-soft: rgba(148, 163, 184, 0.35);
+    }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    min-height: 100vh;
-    color: var(--text-main);
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif; /* matches games page */
+      min-height: 100vh;
+      background: radial-gradient(circle at top,
+        #111827 0,
+        #020617 45%,
+        #000000 100%);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+    }
 
-    /* Your original Aurora gradient */
-    background: radial-gradient(circle at top,
-      rgba(17,24,39,0.10) 0%,
-      rgba(2,6,23,0.18) 40%,
-      rgba(0,0,0,0.22) 100%
-    );
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
-  }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-  /* ==========================
-     INTERACTIVE TOPO BACKGROUND
-     ========================== */
-  #topoWrapper {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    overflow: hidden;
-  }
+    /* NAVBAR */
+    header {
+      border-bottom: 1px solid rgba(15, 23, 42, 1);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(18px);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
 
-  svg.topoTile {
-    width: 256px;
-    height: 256px;
-    opacity: 0.25; /* subtle + visible */
-    position: absolute;
-  }
+    .nav {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
 
-  /* ===== YOUR EXISTING NAVBAR ===== */
-  header {
-    border-bottom: 1px solid rgba(15,23,42,1);
-    background: rgba(15,23,42,0.96);
-    backdrop-filter: blur(18px);
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
-  .nav {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 10px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .nav-left {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-  .nav-links { display: flex; gap: 8px; }
-  .nav-link {
-    padding: 5px 11px;
-    border-radius: 999px;
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: 0.15s;
-  }
-  .nav-link:hover { color: var(--text-main); background: #020617; }
-  .nav-link.active {
-    background: var(--accent-soft);
-    border: 1px solid var(--accent);
-    color: #bbf7d0;
-  }
-  .btn-primary {
-    background: linear-gradient(135deg, #22c55e, #4ade80);
-    padding: 7px 14px;
-    border-radius: 999px;
-    border: 1px solid rgba(74,222,128,0.9);
-    color: #022c22;
-    font-weight: 600;
-  }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
 
-  /* ===== YOUR HERO SECTION ===== */
-  main {
-    padding: 24px 16px 32px;
-  }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-  .hero {
-    max-width: 1120px;
-    margin: 0 auto;
-    border-radius: 22px;
-    border: 1px solid var(--border-soft);
-    background: rgba(15,23,42,0.70);
-    backdrop-filter: blur(12px);
-    padding: 20px 18px;
-    display: grid;
-    grid-template-columns: minmax(0,2fr) minmax(0,1.3fr);
-    gap: 20px;
-  }
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: #022c22;
+      box-shadow: 0 8px 18px rgba(22, 163, 74, 0.9);
+    }
 
-  footer {
-    text-align: center;
-    padding: 12px;
-    font-size: 0.8rem;
-    color: #6b7280;
-  }
+    .brand-text-main {
+      font-weight: 600;
+      font-size: 0.98rem;
+    }
 
-</style>
+    .brand-text-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 0.85rem;
+    }
+
+    .nav-link {
+      padding: 5px 11px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      transition: background 150ms ease-out,
+                  border-color 150ms ease-out,
+                  color 150ms ease-out,
+                  transform 150ms ease-out;
+    }
+
+    .nav-link:hover {
+      color: var(--text-main);
+      background: #020617;
+      border-color: var(--border-soft);
+      transform: translateY(-1px);
+    }
+
+    .nav-link.active {
+      background: var(--accent-soft);
+      border-color: rgba(34, 197, 94, 0.7);
+      color: #bbf7d0;
+      font-weight: 500;
+    }
+
+    .nav-right {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 7px 14px;
+      font-size: 0.82rem;
+      border: 1px solid var(--border-soft);
+      background: #020617;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: transform 150ms ease-out,
+                  box-shadow 150ms ease-out,
+                  background 150ms ease-out,
+                  border-color 150ms ease-out;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      border-color: rgba(74, 222, 128, 0.9);
+      color: #022c22;
+      font-weight: 600;
+      box-shadow: 0 12px 28px rgba(22, 163, 74, 0.9);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.95);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 14px 34px rgba(22, 163, 74, 1);
+    }
+
+    /* MAIN / HERO */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px 32px;
+    }
+
+    .hero {
+      max-width: 1120px;
+      width: 100%;
+      border-radius: 22px;
+      border: 1px solid var(--border-soft);
+      background: radial-gradient(circle at top, #1f2937, #020617);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+      padding: 22px 20px;
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.3fr);
+      gap: 22px;
+    }
+
+    .hero-main {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #a5b4fc;
+    }
+
+    h1 {
+      font-size: 1.9rem;
+      line-height: 1.2;
+    }
+
+    .hero-highlight {
+      color: var(--accent-strong);
+    }
+
+    .hero-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      max-width: 520px;
+    }
+
+    .hero-buttons {
+      margin-top: 6px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hero-meta {
+      margin-top: 4px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .tag-row {
+      margin-top: 6px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.78rem;
+    }
+
+    .tag-pill {
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: #020617;
+      color: var(--text-muted);
+    }
+
+    .hero-side {
+      border-radius: 18px;
+      border: 1px solid var(--border-soft);
+      background: rgba(15, 23, 42, 0.96);
+      padding: 12px 12px 10px;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .hero-side-title {
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+
+    .hero-list {
+      margin-top: 4px;
+      display: grid;
+      gap: 4px;
+    }
+
+    .hero-list-item {
+      padding: 6px 7px;
+      border-radius: 10px;
+      background: #020617;
+      border: 1px solid rgba(31, 41, 55, 1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hero-list-pill {
+      font-size: 0.7rem;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--text-muted);
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(15, 23, 42, 1);
+      padding: 10px 16px 14px;
+      font-size: 0.78rem;
+      color: #6b7280;
+      text-align: center;
+      background: #020617;
+    }
+
+    footer strong {
+      color: var(--text-main);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .hero {
+        padding: 18px 14px;
+      }
+    }
+  </style>
 </head>
 
 <body>
-
-<!-- ==========================
-     INTERACTIVE TOPO BACKGROUND
-     ========================== -->
-<div id="topoWrapper"></div>
-
-<script>
-const wrapper = document.getElementById("topoWrapper");
-
-/* Create seamless tiles */
-function buildTopoTiles() {
-  wrapper.innerHTML = "";
-  const cols = Math.ceil(window.innerWidth / 256) + 2;
-  const rows = Math.ceil(window.innerHeight / 256) + 2;
-
-  for (let y = 0; y < rows; y++) {
-    for (let x = 0; x < cols; x++) {
-
-      const tile = document.createElementNS("http://www.w3.org/2000/svg","svg");
-      tile.setAttribute("viewBox","0 0 256 256");
-      tile.classList.add("topoTile");
-      tile.style.left = `${x * 256}px`;
-      tile.style.top = `${y * 256}px`;
-
-      tile.innerHTML = `
-        <path d="M0 40 Q128 60 256 40" stroke="#22c55e" stroke-opacity="0.22" fill="none"/>
-        <path d="M0 80 Q128 95 256 80" stroke="#22c55e" stroke-opacity="0.20" fill="none"/>
-        <path d="M0 120 Q128 135 256 120" stroke="#22c55e" stroke-opacity="0.18" fill="none"/>
-        <path d="M0 160 Q128 175 256 160" stroke="#22c55e" stroke-opacity="0.20" fill="none"/>
-        <path d="M0 200 Q128 215 256 200" stroke="#22c55e" stroke-opacity="0.22" fill="none"/>
-
-        <path d="M40 0 Q60 128 40 256" stroke="#22c55e" stroke-opacity="0.18" fill="none"/>
-        <path d="M80 0 Q95 128 80 256" stroke="#22c55e" stroke-opacity="0.16" fill="none"/>
-        <path d="M120 0 Q135 128 120 256" stroke="#22c55e" stroke-opacity="0.14" fill="none"/>
-        <path d="M160 0 Q175 128 160 256" stroke="#22c55e" stroke-opacity="0.16" fill="none"/>
-        <path d="M200 0 Q215 128 200 256" stroke="#22c55e" stroke-opacity="0.18" fill="none"/>
-      `;
-
-      wrapper.appendChild(tile);
-    }
-  }
-}
-
-buildTopoTiles();
-window.onresize = buildTopoTiles;
-
-/* ==========================
-   MAGNETIC PULL WARP EFFECT
-   ========================== */
-document.addEventListener("mousemove", (e) => {
-  const paths = document.querySelectorAll("svg.topoTile path");
-
-  paths.forEach(path => {
-    const mid = path.getTotalLength() / 2;
-    const pt = path.getPointAtLength(mid);
-
-    const dx = e.clientX - pt.x;
-    const dy = e.clientY - pt.y;
-    const dist = Math.sqrt(dx*dx + dy*dy);
-
-    const power = Math.max(0, 140 - dist) / 140;
-
-    const d = path.getAttribute("d");
-    const m = d.match(/M(\d+)\s(\d+)\sQ(\d+)\s(\d+)\s(\d+)\s(\d+)/);
-    if (!m) return;
-
-    let [_, x1, y1, cx, cy, x2, y2] = m.map(Number);
-
-    const bendX = dx * 0.12 * power;
-    const bendY = dy * 0.12 * power;
-
-    path.setAttribute("d",
-      `M${x1} ${y1} Q${cx + bendX} ${cy + bendY} ${x2} ${y2}`
-    );
-  });
-});
-</script>
-
-<!-- ==========================
-     YOUR ORIGINAL PAGE CONTENT
-     (UNCHANGED)
-     ========================== -->
-
 <header>
   <div class="nav">
     <div class="nav-left">
-      <div>
-        <div class="brand-text-main">Aurora Arcade</div>
-        <div class="brand-text-sub">Unblocked games hub</div>
+      <div class="brand">
+        <div class="brand-logo">AR</div>
+        <div>
+          <div class="brand-text-main">Aurora Arcade</div>
+          <div class="brand-text-sub">Unblocked games hub</div>
+        </div>
       </div>
 
       <nav class="nav-links">
@@ -223,32 +341,71 @@ document.addEventListener("mousemove", (e) => {
       </nav>
     </div>
 
-    <a href="games/" class="btn-primary">🎮 Open Games</a>
+    <div class="nav-right">
+      <a href="games/" class="btn btn-primary">
+        🎮 Open Games Library
+      </a>
+    </div>
   </div>
 </header>
 
 <main>
   <section class="hero">
-    <div>
-      <h1>Welcome to <span style="color:#22c55e;">Aurora Arcade</span><br>Your unblocked games collection.</h1>
-      <p>This is your landing page for Aurora Arcade. Jump straight into the full games library.</p>
+    <div class="hero-main">
+      <div class="eyebrow">Welcome</div>
+      <h1>
+        Welcome to <span class="hero-highlight">Aurora Arcade</span><br />
+        your unblocked games collection.
+      </h1>
+      <p class="hero-text">
+        Launch your favorite unblocked games from one clean, fast homepage.
+        Aurora Arcade is built to look good on school Chromebooks and load
+        quickly from anywhere.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="games/" class="btn btn-primary">▶ Play Games</a>
+        <a href="games/" class="btn">⭐ View All Titles</a>
+      </div>
+
+      <p class="hero-meta">
+        All games are managed from your <code>games.json</code> file — add or
+        remove games without touching the layout.
+      </p>
+
+      <div class="tag-row">
+        <span class="tag-pill">Aurora dark theme</span>
+        <span class="tag-pill">Chromebook friendly</span>
+        <span class="tag-pill">Single‑click launch</span>
+      </div>
     </div>
 
-    <aside>
-      <strong>Popular picks</strong>
-      <ul>
-        <li>1v1.lol</li>
-        <li>Drift Hunters</li>
-        <li>JustFall.lol</li>
-        <li>Drive Mad</li>
-      </ul>
+    <aside class="hero-side">
+      <div class="hero-side-title">Popular picks</div>
+      <div class="hero-list">
+        <div class="hero-list-item">
+          <span>1v1.lol</span>
+          <span class="hero-list-pill">PVP</span>
+        </div>
+        <div class="hero-list-item">
+          <span>Drift Hunters</span>
+          <span class="hero-list-pill">Racing</span>
+        </div>
+        <div class="hero-list-item">
+          <span>JustFall.lol</span>
+          <span class="hero-list-pill">Party</span>
+        </div>
+        <div class="hero-list-item">
+          <span>Drive Mad</span>
+          <span class="hero-list-pill">Physics</span>
+        </div>
+      </div>
     </aside>
   </section>
 </main>
 
 <footer>
-  © Aurora Arcade — Unblocked games
+  © <strong>Aurora Arcade</strong> – Unblocked games landing page.
 </footer>
-
 </body>
 </html>
