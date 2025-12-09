@@ -1,12 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256">
-  <g fill="none" stroke="#4ade80" stroke-width="1.4" stroke-opacity="0.45">
-    <path d="M0 60 Q60 0 120 60 T240 60" />
-    <path d="M0 120 Q60 60 120 120 T240 120" />
-    <path d="M0 180 Q60 120 120 180 T240 180" />
-  </g>
-
-  <g fill="none" stroke="#22c55e" stroke-width="1.2" stroke-opacity="0.40">
-    <path d="M80 0 Q120 80 80 160 T80 320" />
-    <path d="M160 0 Q200 80 160 160 T160 320" />
-  </g>
+<svg width="256" height="256" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#1f2937" stroke-width="1" stroke-linecap="round" stroke-opacity="0.23">
+  <path d="M0 64 Q64 0 128 64 T256 64" />
+  <path d="M0 128 Q64 64 128 128 T256 128" />
+  <path d="M0 192 Q64 128 128 192 T256 192" />
+  <path d="M64 0 Q128 64 64 128 T64 256" />
+  <path d="M128 0 Q192 64 128 128 T128 256" />
+  <path d="M192 0 Q256 64 192 128 T192 256" />
 </svg>
