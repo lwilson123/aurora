@@ -29,9 +29,14 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
   /* Gradient FIRST (stationary), topo SECOND (animated) */
-  background-image:
-    radial-gradient(circle at top, rgba(17, 24, 39, 0.32) 0%, rgba(2, 6, 23, 0.5) 45%, rgba(0, 0, 0, 0.72) 100%),
-    url("topography.svg");
+background-image:
+  radial-gradient(circle at top,
+    rgba(17, 24, 39, 0.20) 0%,
+    rgba(2, 6, 23, 0.30) 40%,
+    rgba(0, 0, 0, 0.45) 100%
+  ),
+  url("topography.svg");
+
 
   /* Two separate positions: gradient fixed, topo moves */
   background-position:
