@@ -28,23 +28,22 @@
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
-  /* Gradient then topo */
+  /* Gradient layer FIRST, topo SECOND */
   background-image:
-    radial-gradient(circle at top, rgba(17, 24, 39, 0.35) 0%, rgba(2, 6, 23, 0.55) 45%, rgba(0, 0, 0, 0.75) 100%),
+    radial-gradient(circle at top, rgba(17, 24, 39, 0.32) 0%, rgba(2, 6, 23, 0.5) 45%, rgba(0, 0, 0, 0.72) 100%),
     url("topography.svg");
 
-  /* tile size MUST match the SVG size */
+  /* MUST MATCH YOUR SVG SIZE to tile cleanly */
   background-size: cover, 512px 512px;
-
-  /* repeat topo infinitely */
   background-repeat: no-repeat, repeat;
 
-  /* HU trick: multiply so topo stays bright */
+  /* Blend the topo lines in properly */
   background-blend-mode: multiply;
 
-  /* movement pattern similar to HU */
-  animation: topoMove 60s linear infinite;
+  /* HolyUnblocker-style 4-phase drifting motion */
+  animation: topoMove 55s linear infinite;
 
+  /* Layout fixes */
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -53,37 +52,12 @@ body {
 }
 
 @keyframes topoMove {
-  0% {
-    background-position: center, 0px 0px;
-  }
-  25% {
-    background-position: center, 512px 256px;
-  }
-  50% {
-    background-position: center, 1024px 512px;
-  }
-  75% {
-    background-position: center, 512px 768px;
-  }
-  100% {
-    background-position: center, 0px 0px;
-  }
+  0%   { background-position: center, 0px 0px; }
+  25%  { background-position: center, 512px 256px; }
+  50%  { background-position: center, 1024px 512px; }
+  75%  { background-position: center, 512px 768px; }
+  100% { background-position: center, 0px 0px; }
 }
-
-
-    @keyframes topoMove {
-      from {
-        background-position: center, 0px 0px;
-      }
-      to {
-        background-position: center, 600px 450px;
-      }
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
 
     /* NAVBAR */
     header {
