@@ -287,11 +287,11 @@
 
     .games-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
     }
 
-    /* SMALL ICON-STYLE GAME CARDS */
+    /* 200x200 ICON GAME CARDS */
     .game-card {
       border-radius: 14px;
       background: rgba(15, 23, 42, 0.98);
@@ -301,8 +301,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 8px 6px 10px;
-      max-width: 150px;
+      padding: 10px;
+      width: 220px; /* slightly wider than the icon */
       margin: 0 auto;
       transition: transform 160ms ease-out, box-shadow 160ms ease-out, border-color 160ms ease-out;
     }
@@ -370,13 +370,13 @@
     }
 
     .game-title {
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       font-weight: 600;
-      margin-top: 6px;
+      margin-top: 8px;
       margin-bottom: 2px;
     }
 
-    /* hide raw html path for cleaner look */
+    /* hide raw path for cleaner look */
     .game-path {
       display: none;
     }
