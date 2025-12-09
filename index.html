@@ -193,13 +193,12 @@
     }
 
     /* MAIN */
-    main {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px 16px 32px;
-    }
+  main {
+  width: 100%;
+  display: block;
+  padding: 24px 16px 32px;
+  min-height: calc(100vh - 80px); /* forces content to fill screen height */
+}
 
     .hero {
       max-width: 1120px;
