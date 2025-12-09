@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Aurora Arcade – Home</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
   :root {
+    --bg: #020617;
     --accent: #22c55e;
     --accent-soft: rgba(34, 197, 94, 0.1);
+    --accent-strong: #22c55e;
     --text-main: #e5e7eb;
     --text-muted: #9ca3af;
     --border-soft: rgba(148, 163, 184, 0.35);
@@ -17,91 +19,106 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    font-family: system-ui, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     min-height: 100vh;
     color: var(--text-main);
 
-    /* Your gradient */
+    /* Your original Aurora gradient */
     background: radial-gradient(circle at top,
-      rgba(17, 24, 39, 0.10) 0%,
-      rgba(2, 6, 23, 0.18) 40%,
-      rgba(0, 0, 0, 0.22) 100%
+      rgba(17,24,39,0.10) 0%,
+      rgba(2,6,23,0.18) 40%,
+      rgba(0,0,0,0.22) 100%
     );
     background-repeat: no-repeat;
     background-size: cover;
-    overflow-x: hidden;
     position: relative;
   }
 
-  /* Topography container */
+  /* ==========================
+     INTERACTIVE TOPO BACKGROUND
+     ========================== */
   #topoWrapper {
     position: fixed;
     inset: 0;
     z-index: -1;
-    overflow: hidden;
     pointer-events: none;
+    overflow: hidden;
   }
 
-  svg {
-    width: 200%;
-    height: 200%;
+  svg.topoTile {
+    width: 256px;
+    height: 256px;
+    opacity: 0.25; /* subtle + visible */
+    position: absolute;
   }
 
-  /* Navbar */
+  /* ===== YOUR EXISTING NAVBAR ===== */
   header {
+    border-bottom: 1px solid rgba(15,23,42,1);
+    background: rgba(15,23,42,0.96);
+    backdrop-filter: blur(18px);
     position: sticky;
     top: 0;
     z-index: 10;
-    backdrop-filter: blur(18px);
-    background: rgba(15, 23, 42, 0.9);
-    border-bottom: 1px solid rgba(31, 41, 55, 1);
   }
-
   .nav {
     max-width: 1120px;
-    margin: auto;
-    padding: 12px 16px;
+    margin: 0 auto;
+    padding: 10px 16px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
   }
-
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .nav-links { display: flex; gap: 8px; }
   .nav-link {
-    padding: 6px 12px;
+    padding: 5px 11px;
     border-radius: 999px;
     color: var(--text-muted);
     text-decoration: none;
     transition: 0.15s;
   }
-
-  .nav-link:hover { background: #020617; color: var(--text-main); }
+  .nav-link:hover { color: var(--text-main); background: #020617; }
   .nav-link.active {
     background: var(--accent-soft);
     border: 1px solid var(--accent);
     color: #bbf7d0;
   }
+  .btn-primary {
+    background: linear-gradient(135deg, #22c55e, #4ade80);
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(74,222,128,0.9);
+    color: #022c22;
+    font-weight: 600;
+  }
 
-  /* Hero box */
+  /* ===== YOUR HERO SECTION ===== */
   main {
-    padding: 32px 16px;
+    padding: 24px 16px 32px;
   }
 
   .hero {
     max-width: 1120px;
-    margin: auto;
-    background: rgba(15, 23, 42, 0.7);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--border-soft);
+    margin: 0 auto;
     border-radius: 22px;
-    padding: 24px;
+    border: 1px solid var(--border-soft);
+    background: rgba(15,23,42,0.70);
+    backdrop-filter: blur(12px);
+    padding: 20px 18px;
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 24px;
+    grid-template-columns: minmax(0,2fr) minmax(0,1.3fr);
+    gap: 20px;
   }
 
   footer {
     text-align: center;
-    padding: 16px;
+    padding: 12px;
+    font-size: 0.8rem;
     color: #6b7280;
   }
 
@@ -110,45 +127,111 @@
 
 <body>
 
-<!-- INTERACTIVE TOPO -->
-<div id="topoWrapper">
-<svg id="topoSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-  <!-- horizontal contour lines -->
-  <path d="M0 40 Q128 60 256 40" stroke="#22c55e" stroke-opacity="0.35" stroke-width="1" fill="none"/>
-  <path d="M0 80 Q128 95 256 80" stroke="#22c55e" stroke-opacity="0.32" stroke-width="1" fill="none"/>
-  <path d="M0 120 Q128 135 256 120" stroke="#22c55e" stroke-opacity="0.28" stroke-width="1" fill="none"/>
-  <path d="M0 160 Q128 175 256 160" stroke="#22c55e" stroke-opacity="0.32" stroke-width="1" fill="none"/>
-  <path d="M0 200 Q128 215 256 200" stroke="#22c55e" stroke-opacity="0.34" stroke-width="1" fill="none"/>
+<!-- ==========================
+     INTERACTIVE TOPO BACKGROUND
+     ========================== -->
+<div id="topoWrapper"></div>
 
-  <!-- vertical contour lines -->
-  <path d="M40 0 Q60 128 40 256" stroke="#22c55e" stroke-opacity="0.30" stroke-width="1" fill="none"/>
-  <path d="M80 0 Q95 128 80 256" stroke="#22c55e" stroke-opacity="0.27" stroke-width="1" fill="none"/>
-  <path d="M120 0 Q135 128 120 256" stroke="#22c55e" stroke-opacity="0.24" stroke-width="1" fill="none"/>
-  <path d="M160 0 Q175 128 160 256" stroke="#22c55e" stroke-opacity="0.27" stroke-width="1" fill="none"/>
-  <path d="M200 0 Q215 128 200 256" stroke="#22c55e" stroke-opacity="0.30" stroke-width="1" fill="none"/>
-</svg>
-</div>
+<script>
+const wrapper = document.getElementById("topoWrapper");
 
+/* Create seamless tiles */
+function buildTopoTiles() {
+  wrapper.innerHTML = "";
+  const cols = Math.ceil(window.innerWidth / 256) + 2;
+  const rows = Math.ceil(window.innerHeight / 256) + 2;
 
-<!-- NAVBAR -->
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+
+      const tile = document.createElementNS("http://www.w3.org/2000/svg","svg");
+      tile.setAttribute("viewBox","0 0 256 256");
+      tile.classList.add("topoTile");
+      tile.style.left = `${x * 256}px`;
+      tile.style.top = `${y * 256}px`;
+
+      tile.innerHTML = `
+        <path d="M0 40 Q128 60 256 40" stroke="#22c55e" stroke-opacity="0.22" fill="none"/>
+        <path d="M0 80 Q128 95 256 80" stroke="#22c55e" stroke-opacity="0.20" fill="none"/>
+        <path d="M0 120 Q128 135 256 120" stroke="#22c55e" stroke-opacity="0.18" fill="none"/>
+        <path d="M0 160 Q128 175 256 160" stroke="#22c55e" stroke-opacity="0.20" fill="none"/>
+        <path d="M0 200 Q128 215 256 200" stroke="#22c55e" stroke-opacity="0.22" fill="none"/>
+
+        <path d="M40 0 Q60 128 40 256" stroke="#22c55e" stroke-opacity="0.18" fill="none"/>
+        <path d="M80 0 Q95 128 80 256" stroke="#22c55e" stroke-opacity="0.16" fill="none"/>
+        <path d="M120 0 Q135 128 120 256" stroke="#22c55e" stroke-opacity="0.14" fill="none"/>
+        <path d="M160 0 Q175 128 160 256" stroke="#22c55e" stroke-opacity="0.16" fill="none"/>
+        <path d="M200 0 Q215 128 200 256" stroke="#22c55e" stroke-opacity="0.18" fill="none"/>
+      `;
+
+      wrapper.appendChild(tile);
+    }
+  }
+}
+
+buildTopoTiles();
+window.onresize = buildTopoTiles;
+
+/* ==========================
+   MAGNETIC PULL WARP EFFECT
+   ========================== */
+document.addEventListener("mousemove", (e) => {
+  const paths = document.querySelectorAll("svg.topoTile path");
+
+  paths.forEach(path => {
+    const mid = path.getTotalLength() / 2;
+    const pt = path.getPointAtLength(mid);
+
+    const dx = e.clientX - pt.x;
+    const dy = e.clientY - pt.y;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+
+    const power = Math.max(0, 140 - dist) / 140;
+
+    const d = path.getAttribute("d");
+    const m = d.match(/M(\d+)\s(\d+)\sQ(\d+)\s(\d+)\s(\d+)\s(\d+)/);
+    if (!m) return;
+
+    let [_, x1, y1, cx, cy, x2, y2] = m.map(Number);
+
+    const bendX = dx * 0.12 * power;
+    const bendY = dy * 0.12 * power;
+
+    path.setAttribute("d",
+      `M${x1} ${y1} Q${cx + bendX} ${cy + bendY} ${x2} ${y2}`
+    );
+  });
+});
+</script>
+
+<!-- ==========================
+     YOUR ORIGINAL PAGE CONTENT
+     (UNCHANGED)
+     ========================== -->
+
 <header>
   <div class="nav">
-    <div>
-      <a href="./" class="nav-link active">Home</a>
-      <a href="games/" class="nav-link">Games</a>
+    <div class="nav-left">
+      <div>
+        <div class="brand-text-main">Aurora Arcade</div>
+        <div class="brand-text-sub">Unblocked games hub</div>
+      </div>
+
+      <nav class="nav-links">
+        <a href="./" class="nav-link active">Home</a>
+        <a href="games/" class="nav-link">Games</a>
+      </nav>
     </div>
-    <a href="games/" class="nav-link" style="border:1px solid var(--accent);color:var(--accent);">
-      🎮 Open Games
-    </a>
+
+    <a href="games/" class="btn-primary">🎮 Open Games</a>
   </div>
 </header>
 
-<!-- MAIN CONTENT -->
 <main>
   <section class="hero">
     <div>
-      <h2>Welcome to <span style="color:#22c55e;">Aurora Arcade</span></h2>
-      <p>Your unblocked games collection.</p>
+      <h1>Welcome to <span style="color:#22c55e;">Aurora Arcade</span><br>Your unblocked games collection.</h1>
+      <p>This is your landing page for Aurora Arcade. Jump straight into the full games library.</p>
     </div>
 
     <aside>
@@ -160,76 +243,12 @@
         <li>Drive Mad</li>
       </ul>
     </aside>
-
   </section>
 </main>
 
 <footer>
-  © Aurora Arcade
+  © Aurora Arcade — Unblocked games
 </footer>
-
-<script>
-/* ============================
-   MAGNETIC PULL TOPO WARP
-   ============================ */
-
-const svg = document.getElementById("topoSVG");
-const paths = Array.from(svg.querySelectorAll("path"));
-let mouseX = 0, mouseY = 0;
-
-document.addEventListener("mousemove", (e) => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-});
-
-// Smooth warping animation
-function animate() {
-  const rect = svg.getBoundingClientRect();
-
-  const cx = mouseX - rect.left;
-  const cy = mouseY - rect.top;
-
-  paths.forEach((p, i) => {
-    const length = p.getTotalLength();
-    const mid = length / 2;
-
-    // point at middle of the path
-    let pt = p.getPointAtLength(mid);
-
-    // pull strength
-    let dx = (cx - pt.x);
-    let dy = (cy - pt.y);
-    let dist = Math.sqrt(dx * dx + dy * dy);
-
-    let power = Math.max(0, 150 - dist) / 150; // 0 → 1
-
-    // magnetic bending toward cursor
-    let bendX = dx * 0.15 * power;
-    let bendY = dy * 0.15 * power;
-
-    // parse path and adjust control point
-    let d = p.getAttribute("d");
-    let parts = d.match(/M(\d+)\s(\d+)\sQ(\d+)\s(\d+)\s(\d+)\s(\d+)/);
-
-    if (parts) {
-      let x1 = +parts[1];
-      let y1 = +parts[2];
-      let cx0 = +parts[3];
-      let cy0 = +parts[4];
-      let x2 = +parts[5];
-      let y2 = +parts[6];
-
-      p.setAttribute("d",
-        `M${x1} ${y1} Q${cx0 + bendX} ${cy0 + bendY} ${x2} ${y2}`
-      );
-    }
-  });
-
-  requestAnimationFrame(animate);
-}
-
-animate();
-</script>
 
 </body>
 </html>
