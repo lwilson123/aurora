@@ -4,6 +4,11 @@
   "name": "polytrack",
   "image": "images/poly.png",
   "html": "https://joe-the-chicken.github.io/polytrack/"
+},
+{
+  "name": "Riddle school",
+  "image": "images/riddleschool.png",
+  "html": "youtube.com"
 }
   ]
 }
