@@ -5,194 +5,150 @@
   <title>Aurora Arcade – Home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- PIXI.js for interactive background -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.2.4/pixi.min.js"></script>
-
 <style>
-    :root {
-      --bg: #020617;
-      --bg-soft: #020617;
-      --accent: #22c55e;
-      --accent-soft: rgba(34, 197, 94, 0.1);
-      --accent-strong: #22c55e;
-      --text-main: #e5e7eb;
-      --text-muted: #9ca3af;
-      --border-soft: rgba(148, 163, 184, 0.35);
-    }
+  :root {
+    --accent: #22c55e;
+    --accent-soft: rgba(34, 197, 94, 0.1);
+    --text-main: #e5e7eb;
+    --text-muted: #9ca3af;
+    --border-soft: rgba(148, 163, 184, 0.35);
+  }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    /* ===== BACKGROUND CANVAS ===== */
-    #topoCanvas {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: -1;
-      pointer-events: none;
-    }
+  body {
+    font-family: system-ui, sans-serif;
+    min-height: 100vh;
+    color: var(--text-main);
 
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top,
-        rgba(17, 24, 39, 0.10) 0%,
-        rgba(2, 6, 23, 0.18) 40%,
-        rgba(0, 0, 0, 0.22) 100%
-      );
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-color: #020617;
+    /* Your gradient */
+    background: radial-gradient(circle at top,
+      rgba(17, 24, 39, 0.10) 0%,
+      rgba(2, 6, 23, 0.18) 40%,
+      rgba(0, 0, 0, 0.22) 100%
+    );
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow-x: hidden;
+    position: relative;
+  }
 
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      color: var(--text-main);
-    }
+  /* Topography container */
+  #topoWrapper {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+  }
 
-    /* NAVBAR */
-    header {
-      border-bottom: 1px solid rgba(15, 23, 42, 1);
-      background: rgba(15, 23, 42, 0.96);
-      backdrop-filter: blur(18px);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
+  svg {
+    width: 200%;
+    height: 200%;
+  }
 
-    .nav {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
+  /* Navbar */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(18px);
+    background: rgba(15, 23, 42, 0.9);
+    border-bottom: 1px solid rgba(31, 41, 55, 1);
+  }
 
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
+  .nav {
+    max-width: 1120px;
+    margin: auto;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+  .nav-link {
+    padding: 6px 12px;
+    border-radius: 999px;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: 0.15s;
+  }
 
-    .brand-logo {
-      width: 32px;
-      height: 32px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #22c55e, #4ade80);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 0.85rem;
-      color: #022c22;
-      box-shadow: 0 8px 18px rgba(22, 163, 74, 0.9);
-    }
+  .nav-link:hover { background: #020617; color: var(--text-main); }
+  .nav-link.active {
+    background: var(--accent-soft);
+    border: 1px solid var(--accent);
+    color: #bbf7d0;
+  }
 
-    .nav-link {
-      padding: 5px 11px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      color: var(--text-muted);
-      transition: 150ms ease;
-    }
+  /* Hero box */
+  main {
+    padding: 32px 16px;
+  }
 
-    .nav-link:hover {
-      color: var(--text-main);
-      background: #020617;
-      border-color: var(--border-soft);
-      transform: translateY(-1px);
-    }
+  .hero {
+    max-width: 1120px;
+    margin: auto;
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-soft);
+    border-radius: 22px;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+  }
 
-    .nav-link.active {
-      background: var(--accent-soft);
-      border-color: rgba(34, 197, 94, 0.6);
-      color: #bbf7d0;
-      font-weight: 500;
-    }
+  footer {
+    text-align: center;
+    padding: 16px;
+    color: #6b7280;
+  }
 
-    /* HERO SECTION */
-    main {
-      width: 100%;
-      padding: 24px 16px 32px;
-      min-height: calc(100vh - 80px);
-    }
-
-    .hero {
-      max-width: 1120px;
-      width: 100%;
-      border-radius: 22px;
-      border: 1px solid var(--border-soft);
-      background: rgba(15, 23, 42, 0.75);
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
-      padding: 20px;
-      display: grid;
-      grid-template-columns: 2fr 1.3fr;
-      gap: 20px;
-      backdrop-filter: blur(12px);
-    }
-
-    .hero-highlight {
-      color: var(--accent);
-    }
-
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 16px;
-      font-size: 0.8rem;
-      color: #6b7280;
-    }
 </style>
 </head>
 
 <body>
 
-<!-- INTERACTIVE BACKGROUND -->
-<canvas id="topoCanvas"></canvas>
+<!-- INTERACTIVE TOPO -->
+<div id="topoWrapper">
+<svg id="topoSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <!-- horizontal contour lines -->
+  <path d="M0 40 Q128 60 256 40" stroke="#22c55e" stroke-opacity="0.35" stroke-width="1" fill="none"/>
+  <path d="M0 80 Q128 95 256 80" stroke="#22c55e" stroke-opacity="0.32" stroke-width="1" fill="none"/>
+  <path d="M0 120 Q128 135 256 120" stroke="#22c55e" stroke-opacity="0.28" stroke-width="1" fill="none"/>
+  <path d="M0 160 Q128 175 256 160" stroke="#22c55e" stroke-opacity="0.32" stroke-width="1" fill="none"/>
+  <path d="M0 200 Q128 215 256 200" stroke="#22c55e" stroke-opacity="0.34" stroke-width="1" fill="none"/>
+
+  <!-- vertical contour lines -->
+  <path d="M40 0 Q60 128 40 256" stroke="#22c55e" stroke-opacity="0.30" stroke-width="1" fill="none"/>
+  <path d="M80 0 Q95 128 80 256" stroke="#22c55e" stroke-opacity="0.27" stroke-width="1" fill="none"/>
+  <path d="M120 0 Q135 128 120 256" stroke="#22c55e" stroke-opacity="0.24" stroke-width="1" fill="none"/>
+  <path d="M160 0 Q175 128 160 256" stroke="#22c55e" stroke-opacity="0.27" stroke-width="1" fill="none"/>
+  <path d="M200 0 Q215 128 200 256" stroke="#22c55e" stroke-opacity="0.30" stroke-width="1" fill="none"/>
+</svg>
+</div>
+
 
 <!-- NAVBAR -->
 <header>
   <div class="nav">
-    <div class="nav-left">
-      <div class="brand">
-        <div class="brand-logo">AR</div>
-        <div>
-          <div class="brand-text-main">Aurora Arcade</div>
-          <div class="brand-text-sub">Unblocked games hub</div>
-        </div>
-      </div>
-
-      <nav class="nav-links">
-        <a href="./" class="nav-link active">Home</a>
-        <a href="games/" class="nav-link">Games</a>
-      </nav>
+    <div>
+      <a href="./" class="nav-link active">Home</a>
+      <a href="games/" class="nav-link">Games</a>
     </div>
-
-    <div class="nav-right">
-      <a href="games/" class="btn btn-primary">🎮 Open Games Library</a>
-    </div>
+    <a href="games/" class="nav-link" style="border:1px solid var(--accent);color:var(--accent);">
+      🎮 Open Games
+    </a>
   </div>
 </header>
 
-<!-- MAIN -->
+<!-- MAIN CONTENT -->
 <main>
   <section class="hero">
     <div>
-      <h2>Welcome to <span class="hero-highlight">Aurora Arcade</span></h2>
+      <h2>Welcome to <span style="color:#22c55e;">Aurora Arcade</span></h2>
       <p>Your unblocked games collection.</p>
-      <br>
-      <a href="games/" class="btn btn-primary">▶ Play Games</a>
     </div>
 
     <aside>
@@ -204,61 +160,75 @@
         <li>Drive Mad</li>
       </ul>
     </aside>
+
   </section>
 </main>
 
 <footer>
-  © <strong>Aurora Arcade</strong> – Unblocked games hub.
+  © Aurora Arcade
 </footer>
 
-
-<!-- INTERACTIVE BACKGROUND SCRIPT -->
 <script>
-const app = new PIXI.Application({
-  view: document.getElementById("topoCanvas"),
-  resizeTo: window,
-  transparent: true,
-  antialias: true
-});
+/* ============================
+   MAGNETIC PULL TOPO WARP
+   ============================ */
 
-// Topography texture
-const texture = PIXI.Texture.from("topography.svg");
+const svg = document.getElementById("topoSVG");
+const paths = Array.from(svg.querySelectorAll("path"));
+let mouseX = 0, mouseY = 0;
 
-// Scrolling background
-const topo = new PIXI.TilingSprite(texture, window.innerWidth, window.innerHeight);
-topo.alpha = 0.33;
-app.stage.addChild(topo);
-
-// Distortion layer
-const distortion = PIXI.Sprite.from("topography.svg");
-const filter = new PIXI.filters.DisplacementFilter(distortion);
-
-distortion.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT;
-distortion.scale.set(2);
-
-app.stage.addChild(distortion);
-topo.filters = [filter];
-
-let mouseX = 0;
-let mouseY = 0;
-
-// Mouse tracking
 document.addEventListener("mousemove", (e) => {
   mouseX = e.clientX;
   mouseY = e.clientY;
 });
 
-// Animation loop
-app.ticker.add(() => {
-  topo.tilePosition.x += 0.15;
-  topo.tilePosition.y += 0.09;
+// Smooth warping animation
+function animate() {
+  const rect = svg.getBoundingClientRect();
 
-  distortion.x = mouseX - window.innerWidth / 2;
-  distortion.y = mouseY - window.innerHeight / 2;
+  const cx = mouseX - rect.left;
+  const cy = mouseY - rect.top;
 
-  filter.scale.x = (mouseX / window.innerWidth - 0.5) * 200;
-  filter.scale.y = (mouseY / window.innerHeight - 0.5) * 200;
-});
+  paths.forEach((p, i) => {
+    const length = p.getTotalLength();
+    const mid = length / 2;
+
+    // point at middle of the path
+    let pt = p.getPointAtLength(mid);
+
+    // pull strength
+    let dx = (cx - pt.x);
+    let dy = (cy - pt.y);
+    let dist = Math.sqrt(dx * dx + dy * dy);
+
+    let power = Math.max(0, 150 - dist) / 150; // 0 → 1
+
+    // magnetic bending toward cursor
+    let bendX = dx * 0.15 * power;
+    let bendY = dy * 0.15 * power;
+
+    // parse path and adjust control point
+    let d = p.getAttribute("d");
+    let parts = d.match(/M(\d+)\s(\d+)\sQ(\d+)\s(\d+)\s(\d+)\s(\d+)/);
+
+    if (parts) {
+      let x1 = +parts[1];
+      let y1 = +parts[2];
+      let cx0 = +parts[3];
+      let cy0 = +parts[4];
+      let x2 = +parts[5];
+      let y2 = +parts[6];
+
+      p.setAttribute("d",
+        `M${x1} ${y1} Q${cx0 + bendX} ${cy0 + bendY} ${x2} ${y2}`
+      );
+    }
+  });
+
+  requestAnimationFrame(animate);
+}
+
+animate();
 </script>
 
 </body>
