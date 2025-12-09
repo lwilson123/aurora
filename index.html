@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Aurora – Home</title>
+  <title>Aurora Arcade – Home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
       --bg: #020617;
-      --bg-alt: #030712;
+      --bg-soft: #020617;
       --accent: #22c55e;
-      --accent-soft: rgba(34, 197, 94, 0.08);
-      --accent-strong: #a855f7;
+      --accent-soft: rgba(34, 197, 94, 0.1);
+      --accent-strong: #22c55e;
       --text-main: #e5e7eb;
       --text-muted: #9ca3af;
       --border-soft: rgba(148, 163, 184, 0.35);
@@ -47,22 +47,29 @@
     }
 
     .nav {
-      max-width: 960px;
+      max-width: 1120px;
       margin: 0 auto;
       padding: 10px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 16px;
     }
 
     .nav-left {
       display: flex;
       align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
       gap: 10px;
     }
 
-    .brand-mark {
+    .brand-logo {
       width: 32px;
       height: 32px;
       border-radius: 10px;
@@ -94,7 +101,7 @@
     }
 
     .nav-link {
-      padding: 5px 10px;
+      padding: 5px 11px;
       border-radius: 999px;
       border: 1px solid transparent;
       color: var(--text-muted);
@@ -116,8 +123,312 @@
       font-weight: 500;
     }
 
-    /* MAIN LAYOUT */
+    .nav-right {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 7px 14px;
+      font-size: 0.82rem;
+      border: 1px solid var(--border-soft);
+      background: #020617;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: transform 150ms ease-out, box-shadow 150ms ease-out, background 150ms ease-out,
+        border-color 150ms ease-out;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      border-color: rgba(74, 222, 128, 0.9);
+      color: #022c22;
+      font-weight: 600;
+      box-shadow: 0 12px 28px rgba(22, 163, 74, 0.9);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.95);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 14px 34px rgba(22, 163, 74, 1);
+    }
+
+    .btn-icon {
+      font-size: 1rem;
+    }
+
+    /* MAIN */
     main {
       flex: 1;
-      displa
-::contentReference[oaicite:0]{index=0}
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px 32px;
+    }
+
+    .hero {
+      max-width: 1120px;
+      width: 100%;
+      border-radius: 22px;
+      border: 1px solid var(--border-soft);
+      background: radial-gradient(circle at top, #1f2937, #020617);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+      padding: 20px 18px 20px;
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.3fr);
+      gap: 20px;
+    }
+
+    .hero-main {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #a5b4fc;
+    }
+
+    h1 {
+      font-size: 1.9rem;
+      line-height: 1.2;
+    }
+
+    .hero-highlight {
+      color: var(--accent-strong);
+    }
+
+    .hero-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      max-width: 520px;
+    }
+
+    .hero-buttons {
+      margin-top: 6px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hero-meta {
+      margin-top: 4px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .hero-meta strong {
+      color: var(--text-main);
+    }
+
+    .tag-row {
+      margin-top: 6px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.78rem;
+    }
+
+    .tag-pill {
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: #020617;
+      color: var(--text-muted);
+    }
+
+    .hero-side {
+      border-radius: 18px;
+      border: 1px solid var(--border-soft);
+      background: rgba(15, 23, 42, 0.96);
+      padding: 12px 12px 10px;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .hero-side-title {
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+
+    .hero-list {
+      margin-top: 4px;
+      display: grid;
+      gap: 4px;
+    }
+
+    .hero-list-item {
+      padding: 6px 7px;
+      border-radius: 10px;
+      background: #020617;
+      border: 1px solid rgba(31, 41, 55, 1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hero-list-name {
+      font-size: 0.8rem;
+    }
+
+    .hero-list-pill {
+      font-size: 0.7rem;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--text-muted);
+    }
+
+    .hero-footer {
+      margin-top: 4px;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .hero-footer span strong {
+      color: var(--accent-strong);
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(15, 23, 42, 1);
+      padding: 10px 16px 14px;
+      font-size: 0.78rem;
+      color: #6b7280;
+      text-align: center;
+      background: #020617;
+    }
+
+    footer strong {
+      color: var(--text-main);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .hero {
+        padding: 16px 12px 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <div class="nav-left">
+      <div class="brand">
+        <div class="brand-logo">AR</div>
+        <div>
+          <div class="brand-text-main">Aurora Arcade</div>
+          <div class="brand-text-sub">Unblocked games hub</div>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <a href="./" class="nav-link active">Home</a>
+        <a href="games/" class="nav-link">Games</a>
+      </nav>
+    </div>
+    <div class="nav-right">
+      <a href="games/" class="btn btn-primary">
+        <span class="btn-icon">🎮</span>
+        <span>Open Games Library</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-main">
+      <div class="eyebrow">Welcome</div>
+      <h1>
+        Welcome to <span class="hero-highlight">Aurora Arcade</span><br />
+        your unblocked games collection.
+      </h1>
+      <p class="hero-text">
+        This is your landing page for Aurora Arcade. Jump straight into the full games library,
+        browse new additions, and keep everything looking clean and consistent on any device.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="games/" class="btn btn-primary">
+          <span class="btn-icon">▶</span>
+          <span>Play Games</span>
+        </a>
+        <a href="games/" class="btn">
+          <span class="btn-icon">⭐</span>
+          <span>View All Titles</span>
+        </a>
+      </div>
+
+      <p class="hero-meta">
+        Powered by a simple JSON config. Add, remove, or rename games without touching the layout.
+      </p>
+
+      <div class="tag-row">
+        <span class="tag-pill">Dark theme • Aurora style</span>
+        <span class="tag-pill">Fast load on school Chromebooks</span>
+        <span class="tag-pill">Single-click launch</span>
+      </div>
+    </div>
+
+    <aside class="hero-side">
+      <div class="hero-side-title">Popular picks</div>
+      <div class="hero-list">
+        <div class="hero-list-item">
+          <span class="hero-list-name">1v1.lol</span>
+          <span class="hero-list-pill">PVP</span>
+        </div>
+        <div class="hero-list-item">
+          <span class="hero-list-name">Drift Hunters</span>
+          <span class="hero-list-pill">Racing</span>
+        </div>
+        <div class="hero-list-item">
+          <span class="hero-list-name">JustFall.lol</span>
+          <span class="hero-list-pill">Party</span>
+        </div>
+        <div class="hero-list-item">
+          <span class="hero-list-name">Drive Mad</span>
+          <span class="hero-list-pill">Physics</span>
+        </div>
+      </div>
+      <div class="hero-footer">
+        <span>Use the <strong>Games</strong> link or buttons to start playing.</span>
+        <span>Brand: <strong>Aurora Arcade</strong></span>
+      </div>
+    </aside>
+  </section>
+</main>
+
+<footer>
+  <span>© <strong>Aurora Arcade</strong> – Unblocked games landing page.</span>
+</footer>
+</body>
+</html>
