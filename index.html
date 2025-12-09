@@ -48,12 +48,20 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
+
+  /* TOPOGRAPHY IMAGE */
   background-image: url("topography.svg");
   background-size: 256px 256px;
   background-repeat: repeat;
+
+  /* START POSITION FOR ANIMATION */
+  background-position: 0px 0px;
+
   opacity: 0.33;
   z-index: -1;
   pointer-events: none;
+
+  /* ANIMATION APPLIED TO THIS LAYER */
   animation: topoMove 55s linear infinite;
 }
 
