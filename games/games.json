@@ -12,8 +12,8 @@
 },
 {
   "name": "Dune V2",
-  "image": "assets/dune.jpeg",
-  "html": "images/dune.html"
+  "image": "images/dune.jpeg",
+  "html": "assets/dune.html"
 }
   ]
 }
