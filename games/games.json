@@ -8,7 +8,12 @@
 {
   "name": "Riddle school",
   "image": "images/riddleschool.png",
-  "html": "youtube.com"
+  "html": "assets/rc/rc1/index.html"
+}
+{
+  "name": "Dune V2",
+  "image": "assets/dune.jpeg",
+  "html": "assets/dune.html"
 }
   ]
 }
