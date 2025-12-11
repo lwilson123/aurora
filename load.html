@@ -261,7 +261,7 @@
   } else {
     titleEl.textContent = gameName;
     pathEl.textContent = gameUrl;
-    frameEl.src = gameUrl;
+    frameEl.src = "games/" + gameUrl;  <!-- ONLY CHANGE -->
     statusEl.textContent = "Loaded from " + gameUrl;
   }
 
