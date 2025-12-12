@@ -34,6 +34,7 @@
 │           ├── index.html
 │           └── ...
 └── README.md
+```
 🎯 How It Works
 1. Games Library (/games/index.html)
 Reads games/games.json
