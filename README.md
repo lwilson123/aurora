@@ -1,178 +1,59 @@
-🌌 Aurora Arcade
+<div align="center">
 
-A clean, Aurora-themed unblocked games hub powered by static HTML + a simple games.json file.
+# 🌌 **Aurora Arcade**
+### The clean, modern unblocked game hub — powered by simple JSON and static HTML.
 
-✨ Features
+[![Run on Replit](https://replit.com/badge/github/lwilson123/aurora)](https://replit.com/new/github/lwilson123/aurora)
 
-🎮 Games Library – Searchable grid of game cards with thumbnails
+</div>
 
-⭐ Favorites – Star games, saved in the browser
+---
 
-📂 JSON-Driven – Add/remove games just by editing games.json
+## ✨ Features
 
-🧩 Embedded Viewer – Games open inside load.html with fullscreen
+- 🎮 **Clean games library UI**
+- ⭐ **Favorites system (saved locally)**
+- ⚡ **Loads games inside an iframe viewer (load.html)**
+- 📂 **Add games easily via games.json**
+- 🎨 **Aurora dark theme**
+- 🚀 **Fast + lightweight — works on school Chromebooks**
 
-🌑 Aurora Dark Theme – Unified UI across all pages
+---
 
-⚡ Lightweight – Perfect for school Chromebooks
+## 🗂️ Project Structure
 
-🚀 Deploy Anywhere – GitHub Pages, Replit, etc.
-
-🗺️ Project Structure
 aurora/
-├── index.html          # Landing page
-├── load.html           # Game viewer
+├── index.html
+├── load.html
 ├── games/
-│   ├── index.html      # Games library page
-│   ├── games.json      # Game definitions
-│   └── assets/         # Game folders + images
-│       └── <game-name>/
-│            ├── index.html
-│            └── ...game files
+│ ├── index.html
+│ ├── games.json
+│ └── assets/
+│ └── <game-folder>/
+│ ├── index.html
+│ └── ...other files
 └── README.md
 
-🎮 How Aurora Arcade Works
-1. Games Page (/games/)
 
-Loads all games from games.json
+---
 
-Renders each card with:
+## 🕹️ Adding a Game
 
-Thumbnail
+1. Create your folder inside:
 
-Title
+games/assets/<game-name>/
 
-Favorite star
+2. Make sure it contains `index.html`  
+3. Add a JSON entry:
 
-Clicking a card loads:
-
-/load.html?game=assets/<folder>/index.html&name=Your+Game
-
-2. Game Player (load.html)
-
-Displays game inside an iframe
-
-Includes:
-
-Fullscreen
-
-Reload
-
-Path display
-
-Navbar that marks “Games” as active
-
-🕹️ Adding a New Game
-
-Create a folder inside:
-
-/games/assets/<mygame>/
-
-
-Put the game files inside (must include an index.html)
-
-Add an entry to games/games.json:
-
+```json
 {
-  "name": "My Cool Game",
-  "image": "assets/mygame/icon.png",
-  "html": "assets/mygame/index.html"
+  "name": "Cool Game",
+  "image": "assets/coolgame/icon.png",
+  "html": "assets/coolgame/index.html"
 }
+```
+▶️ How Games Load
 
 
-✔ Paths are relative to /games/
-✔ Make sure your image exists
-
-🚀 Deploy on Replit
-
-Click the button:
-
-Steps
-
-Replit imports your repo
-
-If needed, create a basic static web server
-
-Click Run
-
-Open the generated web preview
-
-🌐 Deploy on GitHub Pages
-
-Go to Settings → Pages
-
-Set:
-
-Source: Deploy from branch
-
-Branch: main
-
-Folder: / (root)
-
-Save
-
-Your site will appear at:
-
-https://<username>.github.io/<repo>/
-
-
-For you:
-
-https://lwilson123.github.io/aurora/
-
-🧪 Local Testing (optional)
-
-Run a local web server—this avoids iframe restrictions:
-
-python -m http.server 8000
-
-
-Then open:
-
-http://localhost:8000
-
-⭐ Favorites Storage
-
-Stored using localStorage
-
-Key: aaFavs
-
-Clearing browser data resets favorites
-
-🧱 Tech Stack
-
-HTML
-
-CSS
-
-JavaScript
-
-Zero backend
-
-Fully static + portable
-
-🔮 Future Ideas
-
-Genre filtering
-
-Recently played list
-
-Themes selector
-
-Custom game banners
-
-Save states / notes per game
-
-🎨 Credits
-
-Made for fun — fast, clean, and optimized for students who love browser games.
-Enjoy Aurora Arcade! 🌌🎮
-
-If you want, I can also make:
-
-✅ A Shields.io badge set
-✅ A banner image for the top of your README
-✅ A centered layout version
-✅ A "Powered by Aurora Engine" footer
-
-Just tell me!
+When you click a game card: load.html?game=assets/<folder>/index.html&name=Cool+Game
