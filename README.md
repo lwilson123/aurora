@@ -57,3 +57,64 @@ games/assets/<game-name>/
 
 
 When you click a game card: load.html?game=assets/<folder>/index.html&name=Cool+Game
+
+This allows:
+
+Fullscreen button
+
+Reload button
+
+Dark themed viewer container
+
+🚀 Deploy Aurora Arcade
+Deploy to Replit
+
+Click below to instantly host Aurora Arcade:
+
+<div align="center">
+
+</div>
+Deploy to GitHub Pages
+
+Go to Settings → Pages
+
+Choose:
+
+Branch: main
+
+Folder: /root
+
+Save
+
+Your site appears at: https://<username>.github.io/aurora/
+
+🧪 Local Testing
+
+Run a local server to avoid iframe restrictions: python -m http.server 8000
+Then open: http://localhost:8000
+
+🛠️ Tech Stack
+
+HTML
+
+CSS
+
+JavaScript
+
+Zero backend
+
+Fully portable + static
+
+⭐ Credits
+
+Aurora Arcade was created to be:
+
+fast
+
+clean
+
+lightweight
+
+and easy to maintain
+
+Enjoy your game hub! 🎮🌌
