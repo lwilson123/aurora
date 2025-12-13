@@ -35,3 +35,5 @@ lightweight
 and easy to maintain
 
 Enjoy your game hub! 🎮🌌
+
+MADE BY LJGAMES
