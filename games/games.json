@@ -14,6 +14,11 @@
   "name": "Dune V2",
   "image": "images/dune.jpeg",
   "html": "games/assets/dune.html"
+},
+{
+  "name": "Fart Niggas V2",
+  "image": "images/sm64.png",
+  "html": "games/assets/sm64/index.html"
 }
   ]
 }
