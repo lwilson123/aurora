@@ -31,14 +31,19 @@
   "html": "games/assets/drivemad/index.html"
 },
 {
-  "name": "fnaf 2",
-  "image": "images/fnaf2.jpeg",
-  "html": "games/assets/fnaf2/index.html"
+  "name": "drift hunters",
+  "image": "images/dh.jpeg",
+  "html": "games/assets/drift-hunters/index.html"
 },
 {
   "name": "bitlife",
   "image": "images/bitlife.jpeg",
   "html": "games/assets/bitlife/index.html"
+},
+{
+  "name": "Cookie clicker",
+  "image": "images/cc.jpeg",
+  "html": "games/assets/cookieclicker/index.html"
 }
   ]
 }
