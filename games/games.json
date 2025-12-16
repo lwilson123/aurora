@@ -21,12 +21,12 @@
   "html": "games/assets/sm64/index.html"
 },
 {
-  "name": "adventure capitalist",
-  "image": "images/adcap.png",
-  "html": "games/assets/adcap/index.html"
+  "name": "Cluster Rush",
+  "image": "images/cr.jpeg",
+  "html": "games/assets/cluster-rush/index.html"
 },
 {
-  "name": "adve",
+  "name": "Drive Mad",
   "image": "images/dm.jpeg",
   "html": "games/assets/drivemad/index.html"
 }
