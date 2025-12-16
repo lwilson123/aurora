@@ -19,6 +19,16 @@
   "name": "SM64",
   "image": "images/sm64.png",
   "html": "games/assets/sm64/index.html"
+},
+{
+  "name": "adventure capitalist",
+  "image": "images/adcap.png",
+  "html": "games/assets/adcap/index.html"
+},
+{
+  "name": "adve",
+  "image": "images/dm.jpeg",
+  "html": "games/assets/drivemad/index.html"
 }
   ]
 }
